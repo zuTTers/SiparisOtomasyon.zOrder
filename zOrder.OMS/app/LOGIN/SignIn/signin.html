@@ -1,0 +1,49 @@
+﻿<div class="title">
+    {{Title}}
+</div>
+<div class="main">
+    <div class="wrapper fadeInDown">
+        <form action="/" method="post">
+            <div id="formContent">
+                <div class="fadeIn first">
+                    <img src="../../../images/favicon2.png" id="icon" alt="User Icon" style=" width: 180px; max-height:150px;" /><br />
+                    <h4>Giriş Bilgilerinizi Giriniz...</h4>
+                </div>
+                <!-- Login Form -->
+                <form>
+                    <p><input type="text" class="form-control" ng-model="kullanici_adi" name="kullanici_adi" value="" /></p>
+                    <p><input type="text" class="form-control" ng-model="kullanici_adi" name="kullanici_adi" value="" /></p>
+                    <input id="btnGiris" type="submit" value="Giriş Yap" class="fadeIn fourth" onclick="vm.giris()" />
+                </form>
+                <!-- Remind Passowrd -->
+                <div id="formFooter">
+                    <a class="underlineHover" href="#">zOrder A.Ş</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<div class="container" id="wrap">
+        <div class="row" >
+            <div class="col-lg-4" style="margin-left:33% !important;">
+                <div class="form-login">
+                    <form style="padding:5%;">
+                        <h4 class="text-center text-uppercase" style="font-family:Century; font-weight:900; font-size:larger; font-kerning:normal;">BİLGİ SİSTEMİ GİRİŞ</h4>
+                        <p>Kullanıcı Adı</p>
+                        <p><input type="text" class="form-control" ng-model="kullanici_adi" name="kullanici_adi" value="" /></p>
+                        <br />
+                        <p>Parola</p>
+                        <p><input type="password" class="form-control" ng-model="parola" name="parola" value="" /></p>
+                        <div class="">
+                            <span class="group-btn">
+                                <input id="btnGiris" type="submit" value="Giriş Yap" class="form-control" style="background-color:darkcyan; color:white; font-family:Century; font-weight:900;" />
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>-->
+</div>
+
+

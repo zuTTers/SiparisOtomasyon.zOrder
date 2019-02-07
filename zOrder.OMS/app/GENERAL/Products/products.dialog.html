@@ -1,0 +1,24 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.Title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="productForm" novalidate>
+        <div class="table">
+            <b>Ürün Adı</b>
+            <br />
+            <i><input type="text" name="Name" ng-model="Name" class="form-control" value="" /></i>
+            <br />
+            <b>Fotoğraf</b>
+            <i><input type="file" name="PhotoUrl" ng-model="PhotoUrl" class="form-control" value="" /></i>
+            <!--<tr>
+                <td></td>
+                <td><input type="submit" name="submit" class="form-control" value="Kaydet" /></td>
+            </tr>-->
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok()">Kaydet</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
+</div>

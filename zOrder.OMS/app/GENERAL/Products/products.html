@@ -1,0 +1,59 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="title">
+            {{vm.Title}}
+            <input type="text" ng-model="filterList" class="form-control pull-right text-left" name="filterList" value="" style="padding-bottom: 0px;float: left;width: 150px !important;height: 25px !important;margin-bottom: 0;padding-top: 2px;" />
+            <b class="pull-right" style="margin-right:10px !important;">Ara</b>
+            <a ui-sref="ProductsDialog" class="btn btn-success pull-right text-center" style="width:150px !important; height:30px !important; margin-right:15px;">
+                <span><i class="fa fa-plus"></i></span>
+                <span>Yeni Ürün</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Seç</th>
+                    <th>Ürün No</th>
+                    <th>Adı</th>
+                    <th>Aktif</th>
+                    <th>Görsel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in vm.data | filter : filterList">
+                    <td>
+                        <button ng-click="vm.edit('lg')"><span class="fa fa-edit"></span></button>
+                        <button ng-click="vm.delete(row.Product_Id)"><span class="fa fa-trash"></span></button>
+                    </td>
+                    <td>{{row.Product_Id}}</td>
+                    <td>{{row.Name}}</td>
+                    <td>{{row.IsActive}}</td>
+                    <td><img src="../../../images/{{row.PhotoUrl}}" alt="product" width="32" height="32" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--<div ui-view=""></div>--> 
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <ul>
+            <li ng-repeat="item in $ctrl.items">
+                <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ $ctrl.selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+</script>   
