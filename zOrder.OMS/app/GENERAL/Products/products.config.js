@@ -5,7 +5,8 @@
         .module('Products')
         .config(ProductsConfig);
 
-    function ProductsConfig($urlRouterProvider, $stateProvider, $httpProvider) {
+    function ProductsConfig($urlRouterProvider, $stateProvider, $httpProvider, $qProvider) {
+        $qProvider.errorOnUnhandledRejections(false);
         $urlRouterProvider.otherwise('/');
 
         $stateProvider

@@ -11,10 +11,13 @@ using zOrder.OMS.Models;
 
 namespace zOrder.OMS.Controllers.GENERAL
 {
+    //[Route("api/[controller]/[action]")]
     public class ProductController : ApiController
     {
         // LIST: api/Product
-        [AcceptVerbs("GET", "POST")]
+
+        [HttpGet, HttpPost]
+        [ActionName("List")]
         public JsonResult<ReturnValue> List()
         {
             ReturnValue ret = new ReturnValue();
@@ -63,7 +66,7 @@ namespace zOrder.OMS.Controllers.GENERAL
                     }
                 }
                 ret.success = true;
-                ret.message = "Ürün listesi hazır";
+                ret.message = "Listelendi";
             }
             catch (Exception ex)
             {
@@ -74,6 +77,9 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
+        //[Route("api/Product/Save/{product}")]
+        [HttpGet, HttpPost]
+        [ActionName("Save")]
         public JsonResult<ReturnValue> Save(Products product)
         {
             ReturnValue ret = new ReturnValue();
@@ -108,7 +114,7 @@ namespace zOrder.OMS.Controllers.GENERAL
                         db.Products.Add(nd);
 
                     db.SaveChanges();
-                    ret.message = "Başarıyla kaydedildi";
+                    ret.message = "Kaydedildi";
                     ret.success = true;
                 }
                 //ts.Complete();
@@ -123,7 +129,10 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
-        public JsonResult<ReturnValue> Delete(int? id)
+        //[Route("api/Product/Delete/{id}")]
+        [HttpGet, HttpPost]
+        [ActionName("Delete")]
+        public JsonResult<ReturnValue> Delete(int id)
         {
             ReturnValue ret = new ReturnValue();
             try
@@ -135,7 +144,33 @@ namespace zOrder.OMS.Controllers.GENERAL
                     if (at.Count > 0) db.Products.Remove(at.First());
                     db.SaveChanges();
 
-                    ret.message = "Başarıyla silindi";
+                    ret.message = "Silindi";
+                    ret.success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ret.success = false;
+                ret.error = ex.Message;
+            }
+            return Json(ret);
+        }
+
+        //[Route("api/Product/Delete1")]
+        [HttpGet, HttpPost]
+        public IHttpActionResult Delete1(int id)
+        {
+            ReturnValue ret = new ReturnValue();
+            try
+            {
+                ret.success = false;
+                using (zOrderEntities db = new zOrderEntities())
+                {
+                    var at = db.Products.Where(x => x.Product_Id.Equals(id)).ToList();
+                    if (at.Count > 0) db.Products.Remove(at.First());
+                    db.SaveChanges();
+
+                    ret.message = "Silindi";
                     ret.success = true;
                 }
             }

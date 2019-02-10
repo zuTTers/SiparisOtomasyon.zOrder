@@ -5,9 +5,13 @@
         .controller('ProductsDialogController', ProductsDialogController);
 
     /* @ngInject */
-    function ProductsDialogController($scope, $state, $http, $uibModalInstance) {
+    function ProductsDialogController($scope, $state, $http, $timeout, $uibModalInstance, data) {
         var vm = this;
-        vm.Title = 'Ürün Düzenle';
+
+        vm.row = data.row;
+        vm.edit = data.edit;
+
+        if (vm.edit) { vm.Title = 'Ürün Düzenle'; } else { vm.Title = 'Ürün Ekle'; }
 
         //if (localStorage.getItem("uk") == undefined) {
         //    $state.go("SignIn");
@@ -25,19 +29,13 @@
         vm.filter = {};
         vm.data = [];
 
-        //ekle ile düzenle benzer
-        //vm.addNew = function () {
-        //    //boş row model
-        //    newrow = {
-        //        Product_Id: 0,
-        //        Name : '',
-        //        IsActive : 1,
-        //        PhotoUrl : '',
-        //    }
-        //}
-
-        vm.ok = function () {
-            $uibModalInstance.close('ok');
+        vm.ok = function (edit) {
+            $http.post('/api/Product/Save', vm.row)
+                .then(function (response) {
+                    $uibModalInstance.close('ok');
+                    $state.reload();
+                    $timeout($filter("showInfo")($filter, 'Kaydedildi', 1000, 'info'), 3000);
+                });
         };
 
         vm.cancel = function () {

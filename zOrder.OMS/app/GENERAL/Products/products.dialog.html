@@ -6,19 +6,22 @@
     <form name="productForm" novalidate>
         <div class="table">
             <b>Ürün Adı</b>
+            <input type="text" name="Name" ng-model="vm.row.Name" class="form-control" value="" />
             <br />
-            <i><input type="text" name="Name" ng-model="Name" class="form-control" value="" /></i>
+            <b>Aktif</b>
+            <label class="switch"><input type="checkbox" ng-model="vm.row.IsActive"><span class="slider round"></span></label>
             <br />
-            <b>Fotoğraf</b>
-            <i><input type="file" name="PhotoUrl" ng-model="PhotoUrl" class="form-control" value="" /></i>
+            <b>Görsel</b>
+            <!--<i><img src="../../../images/{{vm.row.PhotoUrl}}" alt="product" width="128" height="128" /></i>-->
+            <input type="file" name="PhotoUrl" ng-model="vm.row.PhotoUrl" class="form-control" value="" />
             <!--<tr>
-                <td></td>
-                <td><input type="submit" name="submit" class="form-control" value="Kaydet" /></td>
-            </tr>-->
+        <td></td>
+        <td><input type="submit" name="submit" class="form-control" value="Kaydet" /></td>
+    </tr>-->
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.ok()">Kaydet</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
     <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
 </div>

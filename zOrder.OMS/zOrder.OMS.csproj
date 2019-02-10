@@ -194,6 +194,7 @@
     <Compile Include="Controllers\GENERAL\ProductController.cs" />
     <Compile Include="Controllers\LOGIN\LoginController.cs" />
     <Compile Include="Controllers\GENERAL\UsersController.cs" />
+    <Compile Include="Controllers\SUPPORT\HelpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -557,7 +558,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\SUPPORT\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

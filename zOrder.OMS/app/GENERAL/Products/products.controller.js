@@ -5,14 +5,9 @@
         .controller('ProductsController', ProductsController);
 
     /* @ngInject */
-    function ProductsController($scope, $state, $http, $timeout, $uibModal, $log) {
+    function ProductsController($scope, $state, $http, $filter, $timeout, $uibModal, $log) {
         var vm = this;
         vm.Title = 'Ürünler';
-
-        //if (localStorage.getItem("uk") == undefined) {
-        //    $state.go("SignIn");
-        //    //location.href = "/SignIn";
-        //}
 
         vm.query = {
             filter: '',
@@ -25,21 +20,26 @@
         vm.filter = {};
         vm.data = [];
 
+        vm.currentPage = 1;
+
         function getList() {
 
             $http.get('/api/Product/List')
                 .then(function (response) {
                     vm.data = response.data.retObject;
-                    zotify(response.data.message);
+                    vm.query.count = response.data.retObject.lenght;
+                    //$filter("showInfo")($filter, response.data.message, 3000, 'info'); // JSON text denenebilir
+                    //zotify(response.data.message);
                 });
                
         }
 
         getList();
 
-        vm.edit = function (size, parentSelector) {
-            var parentElem = parentSelector ?
-                angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        vm.edit = function (size, row, type) {
+            var data = {};
+            //var parentElem = row ?
+            //    angular.element($document[0].querySelector('.modal-demo ' + row)) : undefined;
             var modalInstance = $uibModal.open({
                 animation: ProductsController.animationsEnabled,
                 ariaLabelledBy: 'modal-title',
@@ -48,84 +48,32 @@
                 controller: 'ProductsDialogController',
                 controllerAs: 'vm',
                 size: size,
-                appendTo: parentElem,
+                //appendTo: parentElem,
                 resolve: {
-                    items: function () {
-                        return ProductsController.items;
+                    data: function () {
+                        return data = { row, edit: type };
                     }
                 }
             });
-
-            modalInstance.result.then(function (selectedItem) {
-                ProductsDialogController.selected = selectedItem;
+            modalInstance.result.then(function (row) {
+                ProductsDialogController.selected = row;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
 
-
-
-        //$scope.edit = function (item) {
-
-        //    var itemToEdit = item;
-
-        //    $dialog.dialog(angular.extend(dialogOptions, { resolve: { item: angular.copy(itemToEdit) } }))
-        //        .open()
-        //        .then(function (result) {
-        //            if (result) {
-        //                angular.copy(result, itemToEdit);
-        //            }
-        //            itemToEdit = undefined;
-        //        });
-        //};
-
-        //ekle ile düzenle benzer
-        //vm.addNew = function () {
-        //    //boş row model
-        //    newrow = {
-        //        Product_Id: 0,
-        //        Name : '',
-        //        IsActive : 1,
-        //        PhotoUrl : '',
-        //    }
-        //}
-
-        //vm.edit = function () {
-            //$timeout(function () {
-            //    $dialog.dialog({}).open('products.dialog.html');
-            //}, 3000);
-            //$http.post('/api/Product/Save', row)
-            //    .then(function (response) {
-            //        $state.go('/Product');
-            //        zotify(response.data.message);
-            //    });
-        //}
-
         vm.delete = function (id) {
+            $http.get('/api/Product/Delete?id=' + id)
+                .then(function (response) {
+                    $state.reload();
+                    $filter("showInfo")($filter, 'Silindi', 1000, 'info'); // JSON text denenebilir
+                });
 
-        }
+        }    
 
-        //function getData() {
-
-        //    var input = {
-        //        query: JSON.stringify(vm.query),
-        //        filter: JSON.stringify(vm.filter)
-        //    }
-
-        //    $.post("/api/Product/List", function (data, status) {
-        //        $state.go('/Product');
-        //        if (data.success) {
-        //            vm.data = data.retObject;
-        //            //vm.query.count = data.count;
-        //        }
-        //    });
-        //}
-
-        //getData();
-
-
-        
-
+        //$scope.reloadRoute = function () {
+        //    $state.reload();
+        //};
     }
 })();
 
