@@ -1,0 +1,171 @@
+﻿<html ng-app="app">
+<head>
+    <title>zOrder - Sipariş Otomasyon</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Angular Egitim">
+    <meta name="keywords" content="HTML, CSS, XML, JavaScript">
+    <meta name="author" content="Zubeyir Kocalioglu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--external css classes-->
+    <link href="../css/sharedCss/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/animate.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/chosen.css" rel="stylesheet" />
+    <link href="../css/sharedCss/ImageSelect.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/simplePagination.css" rel="stylesheet" />
+
+    <!--internal css classes-->
+    <link href="../css/sharedCss/main.css" rel="stylesheet" />
+    <link href="../css/myCss/site.css" rel="stylesheet" />
+    <link href="../css/myCss/login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../images/favicon2.png" width="32" height="32" />
+            <span>zOrder</span>
+        </div>
+        <!--<div class="logo" style="z-index:1 !important; float:right; padding:10px;">
+            <a ui-sref="Home" class="nav-trigger" style="z-index:1 !important; display:none;"><span><i class="fa fa-sign-in"></i></span><span>Giriş</span></a>
+        </div>-->
+        <!--<a ui-sref="SignIn">
+            <span><i class="fa fa-sign-in"></i></span>
+            <span>Giriş</span>
+        </a>-->
+        <!--<div class="">{{vm.Title}}</div>-->
+    </div>
+    <div class="side-nav">
+        <div class="logo">
+            <img src="../images/favicon2.png" width="32" height="32" />
+            <span>zOrder</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="active" ng-model="vm.menu.home">
+                    <a ui-sref="Home">
+                        <span><i class="fa fa-home"></i></span>
+                        <span>Genel</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.operations">
+                    <a ui-sref="Operations">
+                        <span><i class="fa fa-flash"></i></span>
+                        <span>Tadilatlar</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.products">
+                    <a ui-sref="Products">
+                        <span><i class="fa fa-book"></i></span>
+                        <span>Ürünler</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.users">
+                    <a ui-sref="Users">
+                        <span><i class="fa fa-users"></i></span>
+                        <span>Personeller</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.customers">
+                    <a ui-sref="Customers">
+                        <span><i class="fa fa-exchange"></i></span>
+                        <span>Müşteriler</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.reports">
+                    <a ui-sref="Reports">
+                        <span><i class="fa fa-bar-chart"></i></span>
+                        <span>Raporlar</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.help">
+                    <a ui-sref="Help">
+                        <span><i class="fa fa-support"></i></span>
+                        <span>Yardım</span>
+                    </a>
+                </li>
+                <!--<li class="active" ng-model="vm.menu.signin" ng-show="1 == 1">
+                    <a ui-sref="SignIn">
+                        <span><i class="fa fa-sign-in"></i></span>
+                        <span>Giriş</span>
+                    </a>
+                </li>-->
+            </ul>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div class="">
+            <!-- MAIN CONTENT -->
+                <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+            <div ui-view style="width:auto; padding:1%;"></div>
+        </div>
+    </div>
+    <!--------------------------------------all external js documents----------------------------------------------->
+    <script src="../scripts/modernizr-2.8.3.js"></script>
+    <script src="../scripts/respond.min.js"></script>
+    <!--jQuery plugins-->
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/jquery.validate.min.js"></script>
+    <script src="../scripts/jquery.simplePagination.js"></script>
+    <script src="../scripts/jquery-ui.min.js"></script>
+    <script src="../scripts/ImageSelect.jquery.js"></script>
+    <!--bootstrap plugins-->
+    <script src="../scripts/bootstrap.min.js"></script>
+    <script src="../scripts/bootstrap-select.js"></script>
+    <script src="../scripts/bootstrap-notify.js"></script>
+    <script src="../scripts/bootstrap-checkbox-radio-switch.js"></script>
+    <!--angularjs plugins-->
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-ui-router.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
+    <script src="../scripts/angular-animate.min.js"></script>
+    <script src="../scripts/ui-bootstrap-2.5.0.js"></script>
+    <script src="../scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <!--internal js documents-->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/fontawesome.min.js"></script>
+    <script src="../scripts/chosen.jquery.js"></script>
+    <script src="../scripts/echarts.min.js"></script>
+    <script src="../scripts/echarts.common.min.js"></script>
+    <script src="../scripts/zorder.js"></script>
+    <!--<script src="../scripts/index.simple.js"></script>-->
+    <!-------------------------------------------------------------------------------------------------------------->
+    <!--app modules and configs-->
+    <script src="app.config.js"></script>
+    <script src="app.js"></script>
+    <script src="login.js"></script>
+
+    <!--app controllers-->
+    <script src="LOGIN/SignIn/signin.module.js"></script>
+    <script src="LOGIN/SignIn/signin.config.js"></script>
+    <script src="LOGIN/SignIn/signin.controller.js"></script>
+    <script src="LOGIN/Register/register.module.js"></script>
+    <script src="LOGIN/Register/register.config.js"></script>
+    <script src="LOGIN/Register/register.controller.js"></script>
+    <script src="GENERAL/Home/home.module.js"></script>
+    <script src="GENERAL/Home/home.config.js"></script>
+    <script src="GENERAL/Home/home.controller.js"></script>
+    <script src="GENERAL/Customers/customers.module.js"></script>
+    <script src="GENERAL/Customers/customers.config.js"></script>
+    <script src="GENERAL/Customers/customers.controller.js"></script>
+    <script src="GENERAL/Operations/operations.module.js"></script>
+    <script src="GENERAL/Operations/operations.config.js"></script>
+    <script src="GENERAL/Operations/operations.controller.js"></script>
+    <script src="GENERAL/Products/products.module.js"></script>
+    <script src="GENERAL/Products/products.config.js"></script>
+    <script src="GENERAL/Products/products.controller.js"></script>
+    <script src="GENERAL/Products/products.dialog.controller.js"></script>
+    <script src="GENERAL/Reports/reports.module.js"></script>
+    <script src="GENERAL/Reports/reports.config.js"></script>
+    <script src="GENERAL/Reports/reports.controller.js"></script>
+    <script src="GENERAL/Users/users.module.js"></script>
+    <script src="GENERAL/Users/users.config.js"></script>
+    <script src="GENERAL/Users/users.controller.js"></script>
+    <script src="SUPPORT/Help/help.module.js"></script>
+    <script src="SUPPORT/Help/help.config.js"></script>
+    <script src="SUPPORT/Help/help.controller.js"></script>
+</body>
+</html>

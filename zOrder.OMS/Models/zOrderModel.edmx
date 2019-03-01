@@ -1,0 +1,1015 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="zOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'KTOtomasyon.dbo.Calendar' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Calendar">
+          <Property Name="CalendarDate" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Log_Id" />
+          </Key>
+          <Property Name="Log_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MethodName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ExMessage" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedUser" Type="int" />
+        </EntityType>
+        <EntityType Name="Mails">
+          <Key>
+            <PropertyRef Name="Mail_Id" />
+          </Key>
+          <Property Name="Mail_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MailSubject" Type="nvarchar(max)" />
+          <Property Name="MailBody" Type="nvarchar(max)" />
+          <Property Name="MailTo" Type="nvarchar" MaxLength="300" />
+          <Property Name="MailFrom" Type="nvarchar" MaxLength="300" />
+          <Property Name="MailCC" Type="nvarchar" MaxLength="300" />
+          <Property Name="MailBCC" Type="nvarchar" MaxLength="300" />
+          <Property Name="IsBodyHtml" Type="bit" />
+          <Property Name="IsSend" Type="bit" />
+          <Property Name="SendDate" Type="datetime" />
+          <Property Name="ErrorMessage" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedUser" Type="int" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="Operation_Id" />
+          </Key>
+          <Property Name="Operation_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetail_Id" />
+          </Key>
+          <Property Name="OrderDetail_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Id" Type="int" />
+          <Property Name="Operation_Id" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="6" />
+          <Property Name="TotalPrice" Type="decimal" Precision="12" Scale="6" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Debt" Type="nvarchar(max)" />
+          <Property Name="Addition" Type="nvarchar(max)" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="CreatedUser" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsPaid" Type="bit" />
+          <Property Name="IsDelivered" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Discount" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhotoUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vCustomers">
+          <Key>
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vLastTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vLastTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="bigint" Nullable="false" />
+          <Property Name="SipMiktar" Type="int" />
+          <Property Name="SipTutar" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vOrderQYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vOrderQYear">
+          <Key>
+            <PropertyRef Name="Ocak" />
+            <PropertyRef Name="Subat" />
+            <PropertyRef Name="Mart" />
+            <PropertyRef Name="Nisan" />
+            <PropertyRef Name="Mayis" />
+            <PropertyRef Name="Haziran" />
+            <PropertyRef Name="Temmuz" />
+            <PropertyRef Name="Agustos" />
+            <PropertyRef Name="Eylul" />
+            <PropertyRef Name="Ekim" />
+            <PropertyRef Name="Kasim" />
+            <PropertyRef Name="Aralik" />
+          </Key>
+          <Property Name="Year" Type="int" />
+          <Property Name="Ocak" Type="int" Nullable="false" />
+          <Property Name="Subat" Type="int" Nullable="false" />
+          <Property Name="Mart" Type="int" Nullable="false" />
+          <Property Name="Nisan" Type="int" Nullable="false" />
+          <Property Name="Mayis" Type="int" Nullable="false" />
+          <Property Name="Haziran" Type="int" Nullable="false" />
+          <Property Name="Temmuz" Type="int" Nullable="false" />
+          <Property Name="Agustos" Type="int" Nullable="false" />
+          <Property Name="Eylul" Type="int" Nullable="false" />
+          <Property Name="Ekim" Type="int" Nullable="false" />
+          <Property Name="Kasim" Type="int" Nullable="false" />
+          <Property Name="Aralik" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vOrders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Debt" Type="nvarchar(max)" />
+          <Property Name="Addition" Type="nvarchar(max)" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="IsDelivered" Type="bit" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="NetTotal" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TotalPrice" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vOrderWYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vOrderWYear">
+          <Key>
+            <PropertyRef Name="Ocak" />
+            <PropertyRef Name="Subat" />
+            <PropertyRef Name="Mart" />
+            <PropertyRef Name="Nisan" />
+            <PropertyRef Name="Mayis" />
+            <PropertyRef Name="Haziran" />
+            <PropertyRef Name="Temmuz" />
+            <PropertyRef Name="Agustos" />
+            <PropertyRef Name="Eylul" />
+            <PropertyRef Name="Ekim" />
+            <PropertyRef Name="Kasim" />
+            <PropertyRef Name="Aralik" />
+          </Key>
+          <Property Name="Year" Type="int" />
+          <Property Name="Ocak" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Subat" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Mart" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Nisan" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Mayis" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Haziran" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Temmuz" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Agustos" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Eylul" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Ekim" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Kasim" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Aralik" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vTodayTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vTodayTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="bigint" Nullable="false" />
+          <Property Name="SipMiktar" Type="int" />
+          <Property Name="SipTutar" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="bigint" Nullable="false" />
+          <Property Name="Yil" Type="int" />
+          <Property Name="Ay" Type="int" />
+          <Property Name="Hafta" Type="int" />
+          <Property Name="SipMiktar" Type="int" />
+          <Property Name="SipTutar" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <Association Name="FK_Mails_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Mails" Type="Self.Mails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Mails">
+              <PropertyRef Name="CreatedUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Operations" Type="Self.Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="Operation_Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Operation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_CreatedUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CreatedUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AylikSiparisTutar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CalenderCreator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="OrderCalender" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="ToplaTutar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstodate" Type="datetime" Mode="In" />
+          <Parameter Name="lastodate" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="zOrderModelStoreContainer">
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mails" EntityType="Self.Mails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operations" EntityType="Self.Operations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vCustomers" EntityType="Self.vCustomers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vCustomers].[CustomerName] AS [CustomerName], 
+    [vCustomers].[PhoneNumber] AS [PhoneNumber]
+    FROM [dbo].[vCustomers] AS [vCustomers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vLastTotalOrder" EntityType="Self.vLastTotalOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vLastTotalOrder].[Sira] AS [Sira], 
+    [vLastTotalOrder].[SipMiktar] AS [SipMiktar], 
+    [vLastTotalOrder].[SipTutar] AS [SipTutar]
+    FROM [dbo].[vLastTotalOrder] AS [vLastTotalOrder]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vOrderQYear" EntityType="Self.vOrderQYear" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vOrderQYear].[Year] AS [Year], 
+    [vOrderQYear].[Ocak] AS [Ocak], 
+    [vOrderQYear].[Subat] AS [Subat], 
+    [vOrderQYear].[Mart] AS [Mart], 
+    [vOrderQYear].[Nisan] AS [Nisan], 
+    [vOrderQYear].[Mayis] AS [Mayis], 
+    [vOrderQYear].[Haziran] AS [Haziran], 
+    [vOrderQYear].[Temmuz] AS [Temmuz], 
+    [vOrderQYear].[Agustos] AS [Agustos], 
+    [vOrderQYear].[Eylul] AS [Eylul], 
+    [vOrderQYear].[Ekim] AS [Ekim], 
+    [vOrderQYear].[Kasim] AS [Kasim], 
+    [vOrderQYear].[Aralik] AS [Aralik]
+    FROM [dbo].[vOrderQYear] AS [vOrderQYear]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vOrders" EntityType="Self.vOrders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vOrders].[Order_Id] AS [Order_Id], 
+    [vOrders].[CustomerName] AS [CustomerName], 
+    [vOrders].[PhoneNumber] AS [PhoneNumber], 
+    [vOrders].[Debt] AS [Debt], 
+    [vOrders].[Addition] AS [Addition], 
+    [vOrders].[OrderDate] AS [OrderDate], 
+    [vOrders].[IsDelivered] AS [IsDelivered], 
+    [vOrders].[Discount] AS [Discount], 
+    [vOrders].[NetTotal] AS [NetTotal], 
+    [vOrders].[TotalPrice] AS [TotalPrice]
+    FROM [dbo].[vOrders] AS [vOrders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vOrderWYear" EntityType="Self.vOrderWYear" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vOrderWYear].[Year] AS [Year], 
+    [vOrderWYear].[Ocak] AS [Ocak], 
+    [vOrderWYear].[Subat] AS [Subat], 
+    [vOrderWYear].[Mart] AS [Mart], 
+    [vOrderWYear].[Nisan] AS [Nisan], 
+    [vOrderWYear].[Mayis] AS [Mayis], 
+    [vOrderWYear].[Haziran] AS [Haziran], 
+    [vOrderWYear].[Temmuz] AS [Temmuz], 
+    [vOrderWYear].[Agustos] AS [Agustos], 
+    [vOrderWYear].[Eylul] AS [Eylul], 
+    [vOrderWYear].[Ekim] AS [Ekim], 
+    [vOrderWYear].[Kasim] AS [Kasim], 
+    [vOrderWYear].[Aralik] AS [Aralik]
+    FROM [dbo].[vOrderWYear] AS [vOrderWYear]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vTodayTotalOrder" EntityType="Self.vTodayTotalOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vTodayTotalOrder].[Sira] AS [Sira], 
+    [vTodayTotalOrder].[SipMiktar] AS [SipMiktar], 
+    [vTodayTotalOrder].[SipTutar] AS [SipTutar]
+    FROM [dbo].[vTodayTotalOrder] AS [vTodayTotalOrder]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vTotalOrder" EntityType="Self.vTotalOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vTotalOrder].[Sira] AS [Sira], 
+    [vTotalOrder].[Yil] AS [Yil], 
+    [vTotalOrder].[Ay] AS [Ay], 
+    [vTotalOrder].[Hafta] AS [Hafta], 
+    [vTotalOrder].[SipMiktar] AS [SipMiktar], 
+    [vTotalOrder].[SipTutar] AS [SipTutar]
+    FROM [dbo].[vTotalOrder] AS [vTotalOrder]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Mails_Users" Association="Self.FK_Mails_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Mails" EntitySet="Mails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Products" Association="Self.FK_Operations_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Operations" Association="Self.FK_OrderDetail_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_CreatedUser" Association="Self.FK_Orders_CreatedUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Log_Id" />
+          </Key>
+          <Property Name="Log_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MethodName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedUser" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Mails">
+          <Key>
+            <PropertyRef Name="Mail_Id" />
+          </Key>
+          <Property Name="Mail_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MailSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MailBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MailTo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MailFrom" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MailCC" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MailBCC" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsBodyHtml" Type="Boolean" />
+          <Property Name="IsSend" Type="Boolean" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedUser" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Mails_Users" FromRole="Mails" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="Operation_Id" />
+          </Key>
+          <Property Name="Operation_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Operations_Products" FromRole="Operations" ToRole="Products" />
+          <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Operations" FromRole="Operations" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetail_Id" />
+          </Key>
+          <Property Name="OrderDetail_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Operation_Id" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="12" Scale="6" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_OrderDetail_Operations" FromRole="OrderDetail" ToRole="Operations" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderDetail_Orders" FromRole="OrderDetail" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Debt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Addition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedUser" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsPaid" Type="Boolean" />
+          <Property Name="IsDelivered" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Discount" Type="Int32" />
+          <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Orders" FromRole="Orders" ToRole="OrderDetail" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Orders_CreatedUser" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_Operations_Products" FromRole="Products" ToRole="Operations" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Mails" Relationship="Self.FK_Mails_Users" FromRole="Users" ToRole="Mails" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_CreatedUser" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="vCustomers">
+          <Key>
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vLastTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="Int64" Nullable="false" />
+          <Property Name="SipMiktar" Type="Int32" />
+          <Property Name="SipTutar" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="vOrderQYear">
+          <Key>
+            <PropertyRef Name="Ocak" />
+            <PropertyRef Name="Subat" />
+            <PropertyRef Name="Mart" />
+            <PropertyRef Name="Nisan" />
+            <PropertyRef Name="Mayis" />
+            <PropertyRef Name="Haziran" />
+            <PropertyRef Name="Temmuz" />
+            <PropertyRef Name="Agustos" />
+            <PropertyRef Name="Eylul" />
+            <PropertyRef Name="Ekim" />
+            <PropertyRef Name="Kasim" />
+            <PropertyRef Name="Aralik" />
+          </Key>
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Ocak" Type="Int32" Nullable="false" />
+          <Property Name="Subat" Type="Int32" Nullable="false" />
+          <Property Name="Mart" Type="Int32" Nullable="false" />
+          <Property Name="Nisan" Type="Int32" Nullable="false" />
+          <Property Name="Mayis" Type="Int32" Nullable="false" />
+          <Property Name="Haziran" Type="Int32" Nullable="false" />
+          <Property Name="Temmuz" Type="Int32" Nullable="false" />
+          <Property Name="Agustos" Type="Int32" Nullable="false" />
+          <Property Name="Eylul" Type="Int32" Nullable="false" />
+          <Property Name="Ekim" Type="Int32" Nullable="false" />
+          <Property Name="Kasim" Type="Int32" Nullable="false" />
+          <Property Name="Aralik" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vOrders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Debt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Addition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelivered" Type="Boolean" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="NetTotal" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="vOrderWYear">
+          <Key>
+            <PropertyRef Name="Ocak" />
+            <PropertyRef Name="Subat" />
+            <PropertyRef Name="Mart" />
+            <PropertyRef Name="Nisan" />
+            <PropertyRef Name="Mayis" />
+            <PropertyRef Name="Haziran" />
+            <PropertyRef Name="Temmuz" />
+            <PropertyRef Name="Agustos" />
+            <PropertyRef Name="Eylul" />
+            <PropertyRef Name="Ekim" />
+            <PropertyRef Name="Kasim" />
+            <PropertyRef Name="Aralik" />
+          </Key>
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Ocak" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Subat" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Mart" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Nisan" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Mayis" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Haziran" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Temmuz" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Agustos" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Eylul" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Ekim" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Kasim" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Aralik" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vTodayTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="Int64" Nullable="false" />
+          <Property Name="SipMiktar" Type="Int32" />
+          <Property Name="SipTutar" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="vTotalOrder">
+          <Key>
+            <PropertyRef Name="Sira" />
+          </Key>
+          <Property Name="Sira" Type="Int64" Nullable="false" />
+          <Property Name="Yil" Type="Int32" />
+          <Property Name="Ay" Type="Int32" />
+          <Property Name="Hafta" Type="Int32" />
+          <Property Name="SipMiktar" Type="Int32" />
+          <Property Name="SipTutar" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <Association Name="FK_Mails_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Mails" Type="Self.Mails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Mails">
+              <PropertyRef Name="CreatedUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Operations" Type="Self.Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="Operation_Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Operation_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_CreatedUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CreatedUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zOrderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Logs" EntityType="Self.Logs" />
+          <EntitySet Name="Mails" EntityType="Self.Mails" />
+          <EntitySet Name="Operations" EntityType="Self.Operations" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="vCustomers" EntityType="Self.vCustomers" />
+          <EntitySet Name="vLastTotalOrder" EntityType="Self.vLastTotalOrder" />
+          <EntitySet Name="vOrderQYear" EntityType="Self.vOrderQYear" />
+          <EntitySet Name="vOrders" EntityType="Self.vOrders" />
+          <EntitySet Name="vOrderWYear" EntityType="Self.vOrderWYear" />
+          <EntitySet Name="vTodayTotalOrder" EntityType="Self.vTodayTotalOrder" />
+          <EntitySet Name="vTotalOrder" EntityType="Self.vTotalOrder" />
+          <AssociationSet Name="FK_Mails_Users" Association="Self.FK_Mails_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Mails" EntitySet="Mails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Products" Association="Self.FK_Operations_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Operations" Association="Self.FK_OrderDetail_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_CreatedUser" Association="Self.FK_Orders_CreatedUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <FunctionImport Name="AylikSiparisTutar" ReturnType="Collection(zOrderModel.AylikSiparisTutar_Result)" />
+          <FunctionImport Name="CalenderCreator">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="OrderCalender" ReturnType="Collection(zOrderModel.OrderCalender_Result)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="ToplaTutar" ReturnType="Collection(Decimal)">
+            <Parameter Name="firstodate" Mode="In" Type="DateTime" />
+            <Parameter Name="lastodate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="AylikSiparisTutar_Result">
+          <Property Type="Decimal" Name="Ocak" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Subat" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Mart" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Nisan" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Mayis" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Haziran" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Temmuz" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Agustos" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Eylul" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Ekim" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Kasim" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Aralik" Nullable="false" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="OrderCalender_Result">
+          <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="Decimal" Name="Ocak" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Subat" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Mart" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Nisan" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Mayis" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Haziran" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Temmuz" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Agustos" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Eylul" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Ekim" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Kasim" Nullable="false" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Aralik" Nullable="false" Precision="38" Scale="6" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="zOrderModelStoreContainer" CdmEntityContainer="zOrderEntities">
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="zOrderModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="Log_Id" ColumnName="Log_Id" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="ExMessage" ColumnName="ExMessage" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mails">
+            <EntityTypeMapping TypeName="zOrderModel.Mails">
+              <MappingFragment StoreEntitySet="Mails">
+                <ScalarProperty Name="Mail_Id" ColumnName="Mail_Id" />
+                <ScalarProperty Name="MailSubject" ColumnName="MailSubject" />
+                <ScalarProperty Name="MailBody" ColumnName="MailBody" />
+                <ScalarProperty Name="MailTo" ColumnName="MailTo" />
+                <ScalarProperty Name="MailFrom" ColumnName="MailFrom" />
+                <ScalarProperty Name="MailCC" ColumnName="MailCC" />
+                <ScalarProperty Name="MailBCC" ColumnName="MailBCC" />
+                <ScalarProperty Name="IsBodyHtml" ColumnName="IsBodyHtml" />
+                <ScalarProperty Name="IsSend" ColumnName="IsSend" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operations">
+            <EntityTypeMapping TypeName="zOrderModel.Operations">
+              <MappingFragment StoreEntitySet="Operations">
+                <ScalarProperty Name="Operation_Id" ColumnName="Operation_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetail">
+            <EntityTypeMapping TypeName="zOrderModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="OrderDetail_Id" ColumnName="OrderDetail_Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Operation_Id" ColumnName="Operation_Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="zOrderModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="Addition" ColumnName="Addition" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="zOrderModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="zOrderModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vCustomers">
+            <EntityTypeMapping TypeName="zOrderModel.vCustomers">
+              <MappingFragment StoreEntitySet="vCustomers">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vLastTotalOrder">
+            <EntityTypeMapping TypeName="zOrderModel.vLastTotalOrder">
+              <MappingFragment StoreEntitySet="vLastTotalOrder">
+                <ScalarProperty Name="Sira" ColumnName="Sira" />
+                <ScalarProperty Name="SipMiktar" ColumnName="SipMiktar" />
+                <ScalarProperty Name="SipTutar" ColumnName="SipTutar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vOrderQYear">
+            <EntityTypeMapping TypeName="zOrderModel.vOrderQYear">
+              <MappingFragment StoreEntitySet="vOrderQYear">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Ocak" ColumnName="Ocak" />
+                <ScalarProperty Name="Subat" ColumnName="Subat" />
+                <ScalarProperty Name="Mart" ColumnName="Mart" />
+                <ScalarProperty Name="Nisan" ColumnName="Nisan" />
+                <ScalarProperty Name="Mayis" ColumnName="Mayis" />
+                <ScalarProperty Name="Haziran" ColumnName="Haziran" />
+                <ScalarProperty Name="Temmuz" ColumnName="Temmuz" />
+                <ScalarProperty Name="Agustos" ColumnName="Agustos" />
+                <ScalarProperty Name="Eylul" ColumnName="Eylul" />
+                <ScalarProperty Name="Ekim" ColumnName="Ekim" />
+                <ScalarProperty Name="Kasim" ColumnName="Kasim" />
+                <ScalarProperty Name="Aralik" ColumnName="Aralik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vOrders">
+            <EntityTypeMapping TypeName="zOrderModel.vOrders">
+              <MappingFragment StoreEntitySet="vOrders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="Addition" ColumnName="Addition" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vOrderWYear">
+            <EntityTypeMapping TypeName="zOrderModel.vOrderWYear">
+              <MappingFragment StoreEntitySet="vOrderWYear">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Ocak" ColumnName="Ocak" />
+                <ScalarProperty Name="Subat" ColumnName="Subat" />
+                <ScalarProperty Name="Mart" ColumnName="Mart" />
+                <ScalarProperty Name="Nisan" ColumnName="Nisan" />
+                <ScalarProperty Name="Mayis" ColumnName="Mayis" />
+                <ScalarProperty Name="Haziran" ColumnName="Haziran" />
+                <ScalarProperty Name="Temmuz" ColumnName="Temmuz" />
+                <ScalarProperty Name="Agustos" ColumnName="Agustos" />
+                <ScalarProperty Name="Eylul" ColumnName="Eylul" />
+                <ScalarProperty Name="Ekim" ColumnName="Ekim" />
+                <ScalarProperty Name="Kasim" ColumnName="Kasim" />
+                <ScalarProperty Name="Aralik" ColumnName="Aralik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vTodayTotalOrder">
+            <EntityTypeMapping TypeName="zOrderModel.vTodayTotalOrder">
+              <MappingFragment StoreEntitySet="vTodayTotalOrder">
+                <ScalarProperty Name="Sira" ColumnName="Sira" />
+                <ScalarProperty Name="SipMiktar" ColumnName="SipMiktar" />
+                <ScalarProperty Name="SipTutar" ColumnName="SipTutar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vTotalOrder">
+            <EntityTypeMapping TypeName="zOrderModel.vTotalOrder">
+              <MappingFragment StoreEntitySet="vTotalOrder">
+                <ScalarProperty Name="Sira" ColumnName="Sira" />
+                <ScalarProperty Name="Yil" ColumnName="Yil" />
+                <ScalarProperty Name="Ay" ColumnName="Ay" />
+                <ScalarProperty Name="Hafta" ColumnName="Hafta" />
+                <ScalarProperty Name="SipMiktar" ColumnName="SipMiktar" />
+                <ScalarProperty Name="SipTutar" ColumnName="SipTutar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AylikSiparisTutar" FunctionName="zOrderModel.Store.AylikSiparisTutar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zOrderModel.AylikSiparisTutar_Result">
+                <ScalarProperty Name="Ocak" ColumnName="Ocak" />
+                <ScalarProperty Name="Subat" ColumnName="Subat" />
+                <ScalarProperty Name="Mart" ColumnName="Mart" />
+                <ScalarProperty Name="Nisan" ColumnName="Nisan" />
+                <ScalarProperty Name="Mayis" ColumnName="Mayis" />
+                <ScalarProperty Name="Haziran" ColumnName="Haziran" />
+                <ScalarProperty Name="Temmuz" ColumnName="Temmuz" />
+                <ScalarProperty Name="Agustos" ColumnName="Agustos" />
+                <ScalarProperty Name="Eylul" ColumnName="Eylul" />
+                <ScalarProperty Name="Ekim" ColumnName="Ekim" />
+                <ScalarProperty Name="Kasim" ColumnName="Kasim" />
+                <ScalarProperty Name="Aralik" ColumnName="Aralik" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CalenderCreator" FunctionName="zOrderModel.Store.CalenderCreator" />
+          <FunctionImportMapping FunctionImportName="OrderCalender" FunctionName="zOrderModel.Store.OrderCalender">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zOrderModel.OrderCalender_Result">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Ocak" ColumnName="Ocak" />
+                <ScalarProperty Name="Subat" ColumnName="Subat" />
+                <ScalarProperty Name="Mart" ColumnName="Mart" />
+                <ScalarProperty Name="Nisan" ColumnName="Nisan" />
+                <ScalarProperty Name="Mayis" ColumnName="Mayis" />
+                <ScalarProperty Name="Haziran" ColumnName="Haziran" />
+                <ScalarProperty Name="Temmuz" ColumnName="Temmuz" />
+                <ScalarProperty Name="Agustos" ColumnName="Agustos" />
+                <ScalarProperty Name="Eylul" ColumnName="Eylul" />
+                <ScalarProperty Name="Ekim" ColumnName="Ekim" />
+                <ScalarProperty Name="Kasim" ColumnName="Kasim" />
+                <ScalarProperty Name="Aralik" ColumnName="Aralik" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ToplaTutar" FunctionName="zOrderModel.Store.ToplaTutar" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

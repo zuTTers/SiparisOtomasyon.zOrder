@@ -1,0 +1,90 @@
+﻿<html ng-app="app">
+<head>
+    <title>zOrder - Giriş</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Angular Egitim">
+    <meta name="keywords" content="HTML, CSS, XML, JavaScript">
+    <meta name="author" content="Zubeyir Kocalioglu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--external css classes-->
+    <link href="../css/sharedCss/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/animate.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/font-awesome.min.css" rel="stylesheet" />
+
+    <!--internal css classes-->
+    <link href="../css/sharedCss/main.css" rel="stylesheet" />
+    <link href="../css/myCss/site.css" rel="stylesheet" />
+    <link href="../css/myCss/login.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="wrapper fadeInDown">
+
+            <!-- Login Form -->
+            <div ui-view></div>
+
+            <!--<div class="main">
+                <div class="wrapper fadeInDown">
+                    <form>
+                        <div id="formContent">
+                            <div class="fadeIn first">
+                                <img src="../../../images/favicon2.png" id="icon" alt="User Icon" style=" " /><br />
+                                <h4>Sisteme Giriş</h4>
+                            </div>
+                            <div><input type="text" class="form-control" ng-model="vm.kullanici" id="kullanici" value="" style="width: 90%; text-align:center;" /></div>
+                            <div><input type="password" class="form-control" ng-model="vm.parola" id="parola" value="" style="width: 90%; text-align:center;" /></div>
+                            <input id="btnGiris" type="submit" value="Giriş Yap" class="fadeIn fourth" onclick="giris()" style="width: 80%; text-align:center; padding: 5%;" />
+                            <div id="formFooter">
+                                <div class="underlineHover"><b style="font-size:26px; font-family:Bahnschrift;">zOrder Yazılım</b></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>-->
+        </div>
+    </div>
+
+
+    <!--------------------------------------all external js documents----------------------------------------------->
+    <script src="../scripts/modernizr-2.8.3.js"></script>
+    <script src="../scripts/respond.min.js"></script>
+    <!--jQuery plugins-->
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/jquery.validate.min.js"></script>
+    <script src="../scripts/jquery.simplePagination.js"></script>
+    <script src="../scripts/jquery-ui.min.js"></script>
+    <!--bootstrap plugins-->
+    <script src="../scripts/bootstrap.min.js"></script>
+    <script src="../scripts/bootstrap-select.js"></script>
+    <script src="../scripts/bootstrap-notify.js"></script>
+    <script src="../scripts/bootstrap-checkbox-radio-switch.js"></script>
+    <!--angularjs plugins-->
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-ui-router.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
+    <script src="../scripts/angular-animate.min.js"></script>
+    <script src="../scripts/ui-bootstrap-2.5.0.js"></script>
+    <script src="../scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <!--internal js documents-->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/fontawesome.min.js"></script>
+    <script src="../scripts/zorder.js"></script>
+    <!--<script src="../scripts/index.simple.js"></script>-->
+    <!-------------------------------------------------------------------------------------------------------------->
+    <!--app modules and configs-->
+    <script src="app.config.js"></script>
+    <script src="app.js"></script>
+    <!--app controllers-->
+    <script src="LOGIN/SignIn/signin.module.js"></script>
+    <script src="LOGIN/SignIn/signin.config.js"></script>
+    <script src="LOGIN/SignIn/signin.controller.js"></script>
+
+    <!--<script src="login.js"></script>-->
+
+</body>
+</html>
