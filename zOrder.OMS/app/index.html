@@ -75,7 +75,7 @@
                         <span>Müşteriler</span>
                     </a>
                 </li>
-                <li class="active" ng-model="vm.menu.reports">
+                <!--<li class="active" ng-model="vm.menu.reports">
                     <a ui-sref="Reports">
                         <span><i class="fa fa-bar-chart"></i></span>
                         <span>Raporlar</span>
@@ -86,7 +86,7 @@
                         <span><i class="fa fa-support"></i></span>
                         <span>Yardım</span>
                     </a>
-                </li>
+                </li>-->
                 <!--<li class="active" ng-model="vm.menu.signin" ng-show="1 == 1">
                     <a ui-sref="SignIn">
                         <span><i class="fa fa-sign-in"></i></span>
@@ -99,7 +99,7 @@
     <div class="main-content">
         <div class="">
             <!-- MAIN CONTENT -->
-                <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+            <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
             <div ui-view style="width:auto; padding:1%;"></div>
         </div>
     </div>
@@ -139,33 +139,47 @@
     <script src="login.js"></script>
 
     <!--app controllers-->
-    <script src="LOGIN/SignIn/signin.module.js"></script>
-    <script src="LOGIN/SignIn/signin.config.js"></script>
-    <script src="LOGIN/SignIn/signin.controller.js"></script>
-    <script src="LOGIN/Register/register.module.js"></script>
-    <script src="LOGIN/Register/register.config.js"></script>
-    <script src="LOGIN/Register/register.controller.js"></script>
     <script src="GENERAL/Home/home.module.js"></script>
     <script src="GENERAL/Home/home.config.js"></script>
     <script src="GENERAL/Home/home.controller.js"></script>
+    <script src="GENERAL/Home/home.dialog.controller.js"></script>
+
     <script src="GENERAL/Customers/customers.module.js"></script>
     <script src="GENERAL/Customers/customers.config.js"></script>
     <script src="GENERAL/Customers/customers.controller.js"></script>
+    <script src="GENERAL/Customers/customers.dialog.controller.js"></script>
+
     <script src="GENERAL/Operations/operations.module.js"></script>
     <script src="GENERAL/Operations/operations.config.js"></script>
     <script src="GENERAL/Operations/operations.controller.js"></script>
+    <script src="GENERAL/Operations/operations.dialog.controller.js"></script>
+
     <script src="GENERAL/Products/products.module.js"></script>
     <script src="GENERAL/Products/products.config.js"></script>
     <script src="GENERAL/Products/products.controller.js"></script>
     <script src="GENERAL/Products/products.dialog.controller.js"></script>
+
     <script src="GENERAL/Reports/reports.module.js"></script>
     <script src="GENERAL/Reports/reports.config.js"></script>
     <script src="GENERAL/Reports/reports.controller.js"></script>
+    <script src="GENERAL/Reports/reports.dialog.controller.js"></script>
+
     <script src="GENERAL/Users/users.module.js"></script>
     <script src="GENERAL/Users/users.config.js"></script>
     <script src="GENERAL/Users/users.controller.js"></script>
+    <script src="GENERAL/Users/users.dialog.controller.js"></script>
+
+    <script src="LOGIN/SignIn/signin.module.js"></script>
+    <script src="LOGIN/SignIn/signin.config.js"></script>
+    <script src="LOGIN/SignIn/signin.controller.js"></script>
+
+    <script src="LOGIN/Register/register.module.js"></script>
+    <script src="LOGIN/Register/register.config.js"></script>
+    <script src="LOGIN/Register/register.controller.js"></script>
+
     <script src="SUPPORT/Help/help.module.js"></script>
     <script src="SUPPORT/Help/help.config.js"></script>
     <script src="SUPPORT/Help/help.controller.js"></script>
+
 </body>
 </html>

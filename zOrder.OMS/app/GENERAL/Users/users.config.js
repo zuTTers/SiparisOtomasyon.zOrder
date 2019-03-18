@@ -5,7 +5,8 @@
         .module('Users')
         .config(UsersConfig);
 
-    function UsersConfig($urlRouterProvider, $stateProvider) {
+    function UsersConfig($urlRouterProvider, $stateProvider, $httpProvider, $qProvider) {
+        $qProvider.errorOnUnhandledRejections(false);
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
@@ -15,6 +16,12 @@
                     '': {
                         templateUrl: 'GENERAL/Users/users.html',
                         controller: 'UsersController',
+                        controllerAs: 'vm'
+                    }
+                    ,
+                    'UsersDialog': {
+                        templateUrl: 'GENERAL/Users/users.dialog.html',
+                        controller: 'UsersDialogController',
                         controllerAs: 'vm'
                     }
                 },

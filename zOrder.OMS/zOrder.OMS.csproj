@@ -189,6 +189,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\GENERAL\HomeController.cs" />
+    <Compile Include="Controllers\GENERAL\CustomerController.cs" />
+    <Compile Include="Controllers\GENERAL\OperationController.cs" />
     <Compile Include="Controllers\GENERAL\ProductController.cs" />
     <Compile Include="Controllers\LOGIN\LoginController.cs" />
     <Compile Include="Controllers\GENERAL\UsersController.cs" />
@@ -269,6 +271,12 @@
     <Content Include="app\GENERAL\Customers\customers.controller.js" />
     <Content Include="app\GENERAL\Customers\customers.html" />
     <Content Include="app\GENERAL\Customers\customers.module.js" />
+    <Content Include="app\GENERAL\Customers\customers.dialog.controller.js" />
+    <Content Include="app\GENERAL\Customers\customers.dialog.html" />
+    <Content Include="app\GENERAL\Home\home.dialog.controller.js" />
+    <Content Include="app\GENERAL\Home\home.dialog.html" />
+    <Content Include="app\GENERAL\Operations\operations.dialog.controller.js" />
+    <Content Include="app\GENERAL\Operations\operations.dialog.html" />
     <Content Include="app\GENERAL\Products\products.dialog.controller.js" />
     <Content Include="app\GENERAL\Products\products.dialog.html" />
     <Content Include="app\GENERAL\Products\products.config.js" />
@@ -279,7 +287,11 @@
     <Content Include="app\GENERAL\Reports\reports.controller.js" />
     <Content Include="app\GENERAL\Reports\reports.html" />
     <Content Include="app\GENERAL\Reports\reports.module.js" />
+    <Content Include="app\GENERAL\Reports\reports.dialog.controller.js" />
+    <Content Include="app\GENERAL\Reports\reports.dialog.html" />
+    <Content Include="app\GENERAL\Users\users.dialog.html" />
     <Content Include="app\GENERAL\Users\users.config.js" />
+    <Content Include="app\GENERAL\Users\users.dialog.controller.js" />
     <Content Include="app\GENERAL\Users\users.controller.js" />
     <Content Include="app\GENERAL\Users\users.html" />
     <Content Include="app\GENERAL\Users\users.module.js" />

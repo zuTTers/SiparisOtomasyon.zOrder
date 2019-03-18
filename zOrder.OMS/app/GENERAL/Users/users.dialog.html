@@ -1,0 +1,39 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.Title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="userForm" novalidate>
+        <div class="table">
+            <b>Kullanıcı Adı</b>
+            <input type="text" name="Name" ng-model="vm.row.Name" class="form-control" value="" />
+            <br />
+            <b>Parola</b>
+            <input type="text" name="Name" ng-model="vm.row.Password" class="form-control" value="" />
+            <br />
+            <b>Cinsiyet</b>
+            <input type="text" name="Name" ng-model="vm.row.Gender" class="form-control" value="" />
+            <br />
+            <b>Mail</b>
+            <input type="text" name="Name" ng-model="vm.row.Mail" class="form-control" value="" />
+            <br />
+            <b>Doğum Tarihi</b>
+            <input type="datetime" name="Name" ng-model="vm.row.Birthday" class="form-control" value="" />
+            <br />
+            <b>Kullanıcı Tipi</b>
+            <input type="text" name="Name" ng-model="vm.row.UserType" class="form-control" value="" />
+            <br />
+            <b>Aktif</b>
+            <label class="switch"><input type="checkbox" ng-model="vm.row.IsActive"><span class="slider round"></span></label>
+            <br />
+            <b>Silindi</b>
+            <label class="switch"><input type="checkbox" ng-model="vm.row.IsDeleted"><span class="slider round"></span></label>
+            <br />
+
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
+</div>

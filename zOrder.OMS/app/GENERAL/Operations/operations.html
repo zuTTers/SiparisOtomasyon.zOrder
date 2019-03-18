@@ -1,22 +1,60 @@
-﻿<div class="title">
-    {{Title}}
-</div>
-<div class="jumbotron text-center">
-    <p>This page demonstrates <span class="text-danger">nested</span> views.</p>
-</div>
-<div class="main">
-
-    <div class="widget">
-        <div class="title">Number of views</div>
-        <div class="chart"></div>
-    </div>
-    <div class="widget">
-        <div class="title">Number of likes</div>
-        <div class="chart"></div>
-    </div>
-    <div class="widget">
-        <div class="title">Number of comments</div>
-        <div class="chart"></div>
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="title">
+            {{vm.Title}}
+            <input type="text" ng-model="filterList" class="form-control pull-right text-left" name="filterList" style="padding: 2px 0px 0px; float: left; margin-bottom: 0px; width: 150px !important; height: 25px !important;" placeholder="Tadilat adı vb." />
+            <b class="pull-right" style="margin-right:10px !important;">Ara</b>
+            <button ng-click="vm.edit('lg',row, false)" class="btn btn-success pull-right" style="width:150px !important; height:30px !important; margin-right:15px;"><span class="fa fa-plus"></span> Yeni Tadilat</button>
+        </div>
     </div>
 </div>
-<!--<div ui-view></div>-->
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-responsive-lg" style="width:100%;  margin-bottom: 0px !important; background-color:#eef1f7;">
+            <thead>
+                <tr>
+                    <th><label>Seç</label></th>
+                    <th ng-click="vm.sort('Operation_Id')">
+                        <label>Tadilat No</label>
+                        <span class="fa" ng-show="vm.sortKey=='Operation_Id' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('Product_Id')">
+                        <label>Ürün No</label>
+                        <span class="fa" ng-show="vm.sortKey=='Product_Id' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('Name')">
+                        <label>Ürün Adı</label>
+                        <span class="fa" ng-show="vm.sortKey=='Name'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('Price')">
+                        <label>Görsel</label>
+                        <span class="fa" ng-show="vm.sortKey=='Price'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('IsActive')">
+                        <label>Aktif</label>
+                        <span class="fa" ng-show="vm.sortKey=='IsActive'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in vm.items | filter : filterList | orderBy: vm.sortKey:vm.reverse">
+                    <td>
+                        <button ng-click="vm.edit('lg',row, true)" class="btn btn-primary"><span class="fa fa-edit"></span></button>
+                        <button ng-click="vm.delete(row.Product_Id)" class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                    </td>
+                    <td>{{row.Operation_Id}}</td>
+                    <td>{{row.Product_Id}}</td>
+                    <td>{{row.Name}}</td>
+                    <td>{{row.Price}}</td>
+                    <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsActive" disabled><span class="slider round"></span></label> <!--{{row.IsActive | yesNo}}--></td>
+                </tr>
+            </tbody>
+        </table>
+        <ul uib-pagination total-items="vm.query.count" ng-model="vm.query.page" items-per-page="vm.query.limit" ng-change="numOfPages()"
+            first-text="İlk"
+            previous-text="Geri"
+            next-text="İleri"
+            last-text="Son"
+            style="margin-top: 0px !important;"></ul>
+    </div>
+</div>

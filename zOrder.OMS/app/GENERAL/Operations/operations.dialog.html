@@ -1,0 +1,26 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.Title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="operationForm" novalidate>
+        <div class="table">
+            <b>Tadilat Adı</b>
+            <input type="text" name="Name" ng-model="vm.row.Name" class="form-control" value="" />
+            <br />
+            <b>Fiyat</b>
+            <input type="text" name="Name" ng-model="vm.row.Price" class="form-control" value="" />
+            <br />
+            <b>Aktif</b>
+            <label class="switch"><input type="checkbox" ng-model="vm.row.IsActive"><span class="slider round"></span></label>
+            <!--<tr>
+        <td></td>
+        <td><input type="submit" name="submit" class="form-control" value="Kaydet" /></td>
+    </tr>-->
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
+</div>

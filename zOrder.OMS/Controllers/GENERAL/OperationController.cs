@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using System.Web.Http.Results;
 using zOrder.OMS.Helper;
 using zOrder.OMS.Models;
 
-namespace zOrder.OMS.Controllers
+
+namespace zOrder.OMS.Controllers.GENERAL
 {
-    public class UsersController : ApiController
+    //[Route("api/[controller]/[action]")]
+    public class OperationController : ApiController
     {
         // LIST: api/Product
 
@@ -27,13 +25,17 @@ namespace zOrder.OMS.Controllers
             try
             {
                 ret.success = false;
+                //Shared.CheckSession();
                 bool isExport = false;
 
                 int rowCount = 0;
+                //var query = "";
+                //var filter = new Products();
+
 
                 using (var db = new zOrderEntities())
                 {
-                    var dataQuery = db.Users.OrderBy(x => x.User_Id).Where(x => 1 == 1);
+                    var dataQuery = db.Operations.OrderBy(x => x.Product_Id).Where(x => 1 == 1);
 
                     #region "Filter"
                     //if (filter != null)
@@ -48,15 +50,11 @@ namespace zOrder.OMS.Controllers
                     var data = dataQuery.ToList().Select(x =>
                         new
                         {
-                            User_Id = x.User_Id,
+                            Product_Id = x.Product_Id,
+                            Operation_Id = x.Operation_Id,
                             Name = x.Name,
-                            Gender = x.Gender,
-                            Birthday = x.Birthday,
-                            Mail = x.Mail,
-                            UserType = x.UserType,
+                            Price = x.Price,
                             IsActive = x.IsActive,
-                            IsDeleted = x.IsDeleted,
-                            Password = x.Password
                         }).ToList();
 
                     if (!isExport)
@@ -83,7 +81,7 @@ namespace zOrder.OMS.Controllers
         //[Route("api/Product/Save/{product}")]
         [HttpGet, HttpPost]
         [ActionName("Save")]
-        public JsonResult<ReturnValue> Save(Users user)
+        public JsonResult<ReturnValue> Save(Operations operation)
         {
             ReturnValue ret = new ReturnValue();
             try
@@ -94,33 +92,28 @@ namespace zOrder.OMS.Controllers
                 using (zOrderEntities db = new zOrderEntities())
                 {
 
-                    Users nd = null;
-                    if (user.User_Id.Equals(0))
+                    Operations nd = null;
+                    if (operation.Operation_Id.Equals(0))
                     {
-                        nd = new Users();
+                        nd = new Operations();
                         //nd.Created_User = usr.uid;
                         //nd.Created_Date = DateTime.Now;
                     }
                     else
                     {
-                        var rd = db.Users.Where(x => x.User_Id.Equals(user.User_Id)).ToList();
+                        var rd = db.Operations.Where(x => x.Operation_Id.Equals(operation.Operation_Id)).ToList();
                         if (rd.Count > 0) nd = rd.First();
                     }
                     //nd.Updated_Date = DateTime.Now;
                     //nd.Updated_User = usr.uid;
 
-                    nd.User_Id = user.User_Id;
-                    nd.Name = user.Name;
-                    nd.Gender = user.Gender;
-                    nd.Birthday = user.Birthday;
-                    nd.Mail = user.Mail;
-                    nd.UserType = user.UserType;
-                    nd.IsActive = user.IsActive;
-                    nd.IsDeleted = user.IsDeleted;
-                    nd.Password = user.Password;
-
-                    if (user.User_Id.Equals(0))
-                        db.Users.Add(nd);
+                    nd.Product_Id = operation.Product_Id;
+                    nd.Operation_Id = operation.Operation_Id;
+                    nd.Name = operation.Name;
+                    nd.Price = operation.Price;
+                    nd.IsActive = operation.IsActive;
+                    if (operation.Operation_Id.Equals(0))
+                        db.Operations.Add(nd);
 
                     db.SaveChanges();
                     ret.message = "Kaydedildi";
@@ -149,8 +142,8 @@ namespace zOrder.OMS.Controllers
                 ret.success = false;
                 using (zOrderEntities db = new zOrderEntities())
                 {
-                    var at = db.Users.Where(x => x.User_Id.Equals(id)).ToList();
-                    if (at.Count > 0) db.Users.Remove(at.First());
+                    var at = db.Operations.Where(x => x.Operation_Id.Equals(id)).ToList();
+                    if (at.Count > 0) db.Operations.Remove(at.First());
                     db.SaveChanges();
 
                     ret.message = "Silindi";
@@ -164,5 +157,6 @@ namespace zOrder.OMS.Controllers
             }
             return Json(ret);
         }
+
     }
 }
