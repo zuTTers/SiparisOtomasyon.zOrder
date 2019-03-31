@@ -1,16 +1,32 @@
 ﻿(function () {
+    'use strict'
     angular
         .module('Home')
         .controller('HomeController', HomeController);
 
     /* @ngInject */
-    function HomeController($scope, $state, $filter) {
-        var vm = $scope;
-        vm.Title = 'Genel';
+    function HomeController($scope, $state, $http, $filter, $timeout, $uibModal, $log) {
 
-        $filter("chechSession")($state, $filter);
+        var vm = this;
+        vm.Title = 'Tüm Siparişler';
 
-        //if (localStorage.getItem('uk') == undefined) { $state.go("SignIn"); }
+        vm.query = {
+            filter: '',
+            limit: '25',
+            order: 'Created_Date',
+            page: 1,
+            count: 0
+        };
+
+        vm.filter = {};
+        vm.data = [];
+
+        vm.sort = function (keyname) {
+            vm.sortKey = keyname;
+            vm.reverse = !vm.reverse;
+        };
+
+        
     }
 })();
 

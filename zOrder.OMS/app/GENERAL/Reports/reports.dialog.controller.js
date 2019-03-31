@@ -1,11 +1,11 @@
 ﻿(function () {
     'use strict'
     angular
-        .module('Users')
-        .controller('UsersDialogController', UsersDialogController);
+        .module('Reports')
+        .controller('ReportsDialogController', ReportsDialogController);
 
     /* @ngInject */
-    function UsersDialogController($scope, $state, $http, $timeout, $uibModalInstance, $filter, data) {
+    function ReportsDialogController($scope, $state, $http, $timeout, $uibModalInstance, $filter, data) {
         var vm = this;
 
         vm.row = data.row;
@@ -29,18 +29,18 @@
         vm.filter = {};
         //vm.data = [];
 
-        vm.ok = function (edit) {
-            $http.post('/api/Users/Save', vm.row)
-                .then(function (response) {
-                    $state.reload();
-                    $filter("showInfo")($filter, 'Kaydedildi', 1000, 'info'); // JSON text denenebilir
-                    $uibModalInstance.close('ok');
-                });
-        };
+        //vm.ok = function (edit) {
+        //    $http.post('/api/Users/Save', vm.row)
+        //        .then(function (response) {
+        //            $state.reload();
+        //            $filter("showInfo")($filter, 'Kaydedildi', 1000, 'info'); // JSON text denenebilir
+        //            $uibModalInstance.close('ok');
+        //        });
+        //};
 
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
+        //vm.cancel = function () {
+        //    $uibModalInstance.dismiss('cancel');
+        //};
 
     }
 })();

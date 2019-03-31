@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudrailSI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twitter.Api.1.0.7\lib\CloudrailSI.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -81,6 +84,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenSSL.PrivateKeyDecoder, Version=1.2.0.0, Culture=neutral, PublicKeyToken=78f5ba1b024431f9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenSSL.PrivateKeyDecoder.1.2.0\lib\net45\OpenSSL.PrivateKeyDecoder.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenSSL.X509Certificate2.Provider, Version=1.2.0.0, Culture=neutral, PublicKeyToken=78f5ba1b024431f9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenSSL.X509Certificate2.Provider.1.2.0\lib\net45\OpenSSL.X509Certificate2.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -191,6 +203,7 @@
     <Compile Include="Controllers\GENERAL\HomeController.cs" />
     <Compile Include="Controllers\GENERAL\CustomerController.cs" />
     <Compile Include="Controllers\GENERAL\OperationController.cs" />
+    <Compile Include="Controllers\GENERAL\OrdersController.cs" />
     <Compile Include="Controllers\GENERAL\ProductController.cs" />
     <Compile Include="Controllers\LOGIN\LoginController.cs" />
     <Compile Include="Controllers\GENERAL\UsersController.cs" />
@@ -277,6 +290,12 @@
     <Content Include="app\GENERAL\Home\home.dialog.html" />
     <Content Include="app\GENERAL\Operations\operations.dialog.controller.js" />
     <Content Include="app\GENERAL\Operations\operations.dialog.html" />
+    <Content Include="app\GENERAL\Orders\orders.config.js" />
+    <Content Include="app\GENERAL\Orders\orders.controller.js" />
+    <Content Include="app\GENERAL\Orders\orders.dialog.controller.js" />
+    <Content Include="app\GENERAL\Orders\orders.dialog.html" />
+    <Content Include="app\GENERAL\Orders\orders.html" />
+    <Content Include="app\GENERAL\Orders\orders.module.js" />
     <Content Include="app\GENERAL\Products\products.dialog.controller.js" />
     <Content Include="app\GENERAL\Products\products.dialog.html" />
     <Content Include="app\GENERAL\Products\products.config.js" />

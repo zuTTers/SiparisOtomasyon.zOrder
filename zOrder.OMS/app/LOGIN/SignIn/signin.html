@@ -3,14 +3,18 @@
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <div class="fadeIn first">
-                <img src="../../../images/favicon2.png" id="icon" alt="User Icon" style=" " /><br />
+                <img src="../../../images/favicon2.png" id="icon" alt="User Icon" style="" /><br />
                 <h4>Sisteme Giriş</h4>
             </div>
             <div><input type="text" class="form-control" ng-model="vm.kullanici" name="kullanici_adi" value="" style="width: 90%; text-align:center;" /></div>
             <div><input type="password" class="form-control" ng-model="vm.parola" name="parola" value="" style="width: 90%; text-align:center;" /></div>
             <input id="btnGiris" type="submit" value="Giriş Yap" class="fadeIn fourth" ng-click="vm.giris()" style="width: 80%; text-align:center; padding: 5%;" />
             <div id="formFooter">
-                <div class="underlineHover"><b style="font-size:26px; font-family:Bahnschrift;">zOrder Yazılım</b></div>
+                <button class="btn btn-primary" ng-click="vm.twitterOauth()">
+                    <span><i class="fa fa-twitter"></i></span>
+                    <span>Twitter</span>
+                </button>
+                <!--<div class="underlineHover"><b style="font-size:26px; font-family:Bahnschrift;">zOrder Yazılım</b></div>-->
             </div>
         </div>
     </div>

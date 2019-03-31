@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
+using RestSharp;
+using RestSharp.Authenticators;
+using RestSharp.Extensions;
+using zOrder.OMS.Helper;
+using zOrder.OMS.Models;
 
 namespace zOrder.OMS.Controllers
 {
     public class HomeController : ApiController
     {
+
         // GET: api/Home
         public IEnumerable<string> Get()
         {
@@ -35,5 +43,7 @@ namespace zOrder.OMS.Controllers
         public void Delete(int id)
         {
         }
+
+
     }
 }

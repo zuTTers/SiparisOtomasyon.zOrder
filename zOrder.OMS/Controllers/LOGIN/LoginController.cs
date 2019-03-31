@@ -7,6 +7,9 @@ using System.Web.Http;
 using zOrder.OMS.Models;
 using zOrder.OMS.Helper;
 using System.Web.Http.Results;
+using RestSharp;
+using RestSharp.Authenticators;
+using System.Web;
 
 namespace zOrder.OMS.Controllers
 {
@@ -51,6 +54,51 @@ namespace zOrder.OMS.Controllers
             return Json(ret);
         }
 
-        
+        private string twitter_consumer_key = "qgZgXMAgDjCx2efQjhLHFm01b"; //api key
+        private string twitter_consumer_secret = "ErpKTAnCOgGr3Nd7XEr1OuXc6tjKW3z1LCm61pyPtzux6S03Zf"; //secret key
+
+        public string GetRequestToken(string key, string secret, string callBackUrl)
+        {
+            var client = new RestClient("https://api.twitter.com");
+            client.Authenticator = OAuth1Authenticator.ForRequestToken(key, secret, callBackUrl);
+
+            var request = new RestRequest("/oauth/request_token", Method.POST);
+            var response = client.Execute(request);
+
+            var qs = HttpUtility.ParseQueryString(response.Content);
+
+            string oauthToken = qs["oauth_token"];
+            string oauthTokenSecret = qs["oauth_token_secret"];
+
+            request = new RestRequest("oauth/authorize?oauth_token=" + oauthToken);
+
+            string url = client.BuildUri(request).ToString();
+            return url;
+        }
+
+        [HttpGet, HttpPost]
+        [ActionName("TwitterAuth")]
+        public JsonResult<ReturnValue> TwitterAuth()
+        {
+            ReturnValue ret = new ReturnValue();
+
+            try
+            {
+                var url = GetRequestToken(twitter_consumer_key, twitter_consumer_secret, "https://127.0.0.1");
+
+                ret.retObject = url;
+                ret.success = true;
+                ret.message = "Twitter";
+            }
+            catch (Exception ex)
+            {
+                ret.success = false;
+                ret.error = ex.Message;
+            }
+
+            return Json(ret);
+        }
+
+
     }
 }

@@ -1,24 +1,34 @@
-﻿<div class="title">
-    {{Title}}
-</div>
-<div class="jumbotron text-center">
-    <p>This page demonstrates <span class="text-danger">nested</span> views.</p>
-
-    <!--<a ui-sref=".list" class="btn btn-primary">List</a>
-    <a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>-->
+﻿<div class="jumbotron text-center">
+    <p>zOrder ile artık siparişlerinizi yönetmek çok kolay. Hemen <a ui-sref="Orders"><span class="text-danger">başlayın.</span></a></p>
 </div>
 <div class="main">
+    <div class="widget">
+        <div class="title">
+            <button class="btn btn-default">
+                <span><i class="fa fa-facebook"></i></span>
+                <span>Facebook</span>
+            </button>
+        </div>
+        <div class="chart"></div>
+    </div>
+    <div class="widget">
+        <div class="title">
+            <button class="btn btn-default">
+                <span><i class="fa fa-twitter"></i></span>
+                <span>Twitter</span>
+            </button>
+        </div>
+        <div class="chart">
 
-    <div class="widget">
-        <div class="title">Number of views</div>
-        <div class="chart"></div>
+        </div>
     </div>
     <div class="widget">
-        <div class="title">Number of likes</div>
-        <div class="chart"></div>
-    </div>
-    <div class="widget">
-        <div class="title">Number of comments</div>
+        <div class="title">
+            <button class="btn btn-default">
+                <span><i class="fa fa-instagram"></i></span>
+                <span>Instagram</span>
+            </button>
+        </div>
         <div class="chart"></div>
     </div>
 </div>

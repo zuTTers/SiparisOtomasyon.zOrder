@@ -25,19 +25,18 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">
+        <div style="position:absolute; margin-left:1250px; margin-top:5px;" class="btn btn-outline-primary">
+            <a ui-sref="SignIn" class="text-black-50" style="color:whitesmoke; font-style:oblique;">
+                <span><i class="fa fa-sign-in" style="color:wheat;"></i></span>
+                <span>Giriş</span>
+            </a>
+        </div>
+        <!--<div class="logo">
             <img src="../images/favicon2.png" width="32" height="32" />
             <span>zOrder</span>
-        </div>
-        <!--<div class="logo" style="z-index:1 !important; float:right; padding:10px;">
-            <a ui-sref="Home" class="nav-trigger" style="z-index:1 !important; display:none;"><span><i class="fa fa-sign-in"></i></span><span>Giriş</span></a>
         </div>-->
-        <!--<a ui-sref="SignIn">
-            <span><i class="fa fa-sign-in"></i></span>
-            <span>Giriş</span>
-        </a>-->
-        <!--<div class="">{{vm.Title}}</div>-->
     </div>
+
     <div class="side-nav">
         <div class="logo">
             <img src="../images/favicon2.png" width="32" height="32" />
@@ -49,6 +48,12 @@
                     <a ui-sref="Home">
                         <span><i class="fa fa-home"></i></span>
                         <span>Genel</span>
+                    </a>
+                </li>
+                <li class="active" ng-model="vm.menu.orders">
+                    <a ui-sref="Orders">
+                        <span><i class="fa fa-pencil-square"></i></span>
+                        <span>Siparişler</span>
                     </a>
                 </li>
                 <li class="active" ng-model="vm.menu.operations">
@@ -85,12 +90,6 @@
                     <a ui-sref="Help">
                         <span><i class="fa fa-support"></i></span>
                         <span>Yardım</span>
-                    </a>
-                </li>-->
-                <!--<li class="active" ng-model="vm.menu.signin" ng-show="1 == 1">
-                    <a ui-sref="SignIn">
-                        <span><i class="fa fa-sign-in"></i></span>
-                        <span>Giriş</span>
                     </a>
                 </li>-->
             </ul>
@@ -143,6 +142,11 @@
     <script src="GENERAL/Home/home.config.js"></script>
     <script src="GENERAL/Home/home.controller.js"></script>
     <script src="GENERAL/Home/home.dialog.controller.js"></script>
+
+    <script src="GENERAL/Orders/orders.module.js"></script>
+    <script src="GENERAL/Orders/orders.config.js"></script>
+    <script src="GENERAL/Orders/orders.controller.js"></script>
+    <script src="GENERAL/Orders/orders.dialog.controller.js"></script>
 
     <script src="GENERAL/Customers/customers.module.js"></script>
     <script src="GENERAL/Customers/customers.config.js"></script>
