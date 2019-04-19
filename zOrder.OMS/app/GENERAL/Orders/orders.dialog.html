@@ -1,27 +1,89 @@
 ﻿
-<div class="modal-header">
+<div class="modal-header" style="background-color:#edff00;">
     <h3 class="modal-title" id="modal-title">{{vm.Title}}</h3>
+    <button type="button" class="close" style="margin-top: -24px !important;"><b style="color:darkred !important;"><span class="fa fa-close"></span></b></button>
 </div>
 <div class="modal-body" id="modal-body">
-    <form name="productForm" novalidate>
-        <div class="table">
-            <b>Ürün Adı</b>
-            <input type="text" name="Name" ng-model="vm.row.Name" class="form-control" value="" />
-            <br />
-            <b>Aktif</b>
-            <label class="switch"><input type="checkbox" ng-model="vm.row.IsActive"><span class="slider round"></span></label>
-            <br />
-            <b>Görsel</b>
-            <!--<i><img src="../../../images/{{vm.row.PhotoUrl}}" alt="product" width="128" height="128" /></i>-->
-            <input type="file" name="PhotoUrl" ng-model="vm.row.PhotoUrl" class="form-control" value="" />
-            <!--<tr>
-        <td></td>
-        <td><input type="submit" name="submit" class="form-control" value="Kaydet" /></td>
-    </tr>-->
+    <form name="orderForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input ng-model="Order_Id" type="text" class="form-control" name="CreatedDate" value="" placeholder="Tarih" ng-hide="true" />
+                    <input ng-model="CreatedDate" type="datetime" class="form-control" name="CreatedDate" value="" placeholder="Tarih" ng-hide="true" />
+                    <h6 class="text-uppercase">Telefon No</h6>
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <input ng-model="PhoneNumber" type="text" class="form-control" name="PhoneNumber" tabindex="1" placeholder="555 444 33 22" value="" onkeypress="return IsNumber(event)" maxlength="10" />
+                        </div>
+                        <div class="col-lg-1" style="margin-top:10px;padding-left: 0px;">
+                            <button type="button" class="btn-sm btn btn-default" ng-click="txtTelefonGetir()"><span class="fa fa-search"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h6 class="text-uppercase">Teslim Tarihi</h6>
+                    <input ng-model="OrderDate" type="datetime" class="form-control" tabindex="3" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                    <h6 class="text-uppercase pull-left">Müşteri Ad/Soyad</h6>
+                    <input ng-model="CustomerName" type="text" class="form-control" name="CustomerName" value="" placeholder="Ad/Soyad" tabindex="2" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                    <h6 class="text-uppercase"> Alınan Tutar </h6>
+                    <input ng-model="Debt" type="text" class="form-control" name="Debt" value="" placeholder="0" tabindex="4" />
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-lg-offset-5">
+                <input type="radio" value="0" class="radio-inline" ng-click="TekliGoster()" /> Hızlı İşlem
+                <input type="radio" value="1" class="radio-inline" ng-click="CokluGoster()" /> Normal İşlem
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-12">
+                <select ng-model="Operation_Id" class="form-control" name="ofilter" title="İşlem Listesi">
+                    <option>İşlem Seç..</option>
+                    <option>Paça kesimi</option>
+                </select>
+                <input ng-model="Price" type="text" class="form-control" placeholder="Tutar giriniz.." maxlength="5" onkeypress="return IsNumber(event)" />
+            </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
-    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
+    <div class="col-lg-1">
+        <b class="text-muted">Teslim: </b>
+        <label class="custom-control custom-checkbox">
+            <input ng-model="IsDelivered" type="checkbox" name="btnSiparisKaydet2" class="custom-control-input" />
+            <span class="custom-control-indicator"></span>
+        </label>
+    </div>
+    <div class="col-lg-1">
+        <b class="text-muted">Ödeme: </b>
+        <label class="custom-control custom-checkbox">
+            <input ng-model="IsPaid" type="checkbox" name="IsPaid" class="custom-control-input" />
+            <span class="custom-control-indicator"></span>
+        </label>
+    </div>
+    <div class="col-lg-3">
+        <input ng-model="Discount" type="text" class="form-control pull-right" name="Debt" value="" placeholder="İndirim" tabindex="5" />
+
+    </div>
+    <div class="col-lg-3">
+        <input ng-model="Addition" type="text" class="form-control pull-left" name="Addition" value="" placeholder="Açıklama" tabindex="5" />
+
+    </div>
+    <div class="col-lg-4">
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
+        <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
+    </div>
+
+
 </div>

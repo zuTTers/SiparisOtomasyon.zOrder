@@ -11,7 +11,7 @@
         vm.row = data.row;
         vm.edit = data.edit;
 
-        if (vm.edit) { vm.Title = 'Sipariş Detay'; } else { vm.Title = 'Sipariş Ekle'; }
+        if (vm.edit) { vm.Title = 'Sipariş Detay'; } else { vm.Title = 'Fiş Çıkar'; }
 
         //if (localStorage.getItem("uk") == undefined) {
         //    $state.go("SignIn");

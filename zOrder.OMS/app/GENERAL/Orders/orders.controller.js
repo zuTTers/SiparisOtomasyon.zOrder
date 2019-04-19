@@ -57,11 +57,11 @@
             //var parentElem = row ?
             //    angular.element($document[0].querySelector('.modal-demo ' + row)) : undefined;
             var modalInstance = $uibModal.open({
-                animation: ProductsController.animationsEnabled,
+                animation: OrdersController.animationsEnabled,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'GENERAL/Products/products.dialog.html',
-                controller: 'ProductsDialogController',
+                templateUrl: 'GENERAL/Orders/orders.dialog.html',
+                controller: 'OrdersDialogController',
                 controllerAs: 'vm',
                 size: size,
                 //appendTo: parentElem,
@@ -72,7 +72,7 @@
                 }
             });
             modalInstance.result.then(function (row) {
-                ProductsDialogController.selected = row;
+                OrdersDialogController.selected = row;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
