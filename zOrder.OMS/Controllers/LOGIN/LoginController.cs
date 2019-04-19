@@ -54,8 +54,8 @@ namespace zOrder.OMS.Controllers
             return Json(ret);
         }
 
-        private string twitter_consumer_key = "qgZgXMAgDjCx2efQjhLHFm01b"; //api key
-        private string twitter_consumer_secret = "ErpKTAnCOgGr3Nd7XEr1OuXc6tjKW3z1LCm61pyPtzux6S03Zf"; //secret key
+        private string twitter_consumer_key = "***********"; //api key
+        private string twitter_consumer_secret = "**********************"; //secret key
 
         public string GetRequestToken(string key, string secret, string callBackUrl)
         {
