@@ -4,22 +4,22 @@
         .config(
             function appConfig($urlRouterProvider, $stateProvider) {
 
-            
-            $stateProvider
-                .state('/', {
-                    url: '/',
-                    views: {
-                        '': {
-                            templateUrl: 'GENERAL/Home/home.html',
-                            controller: 'HomeController',
-                            controllerAs: 'vm'
-                        }
-                    },
-                    data: {
 
-                    }
-                });
-        })
+                $stateProvider
+                    .state('/', {
+                        url: '/',
+                        views: {
+                            '': {
+                                templateUrl: 'GENERAL/Home/home.html',
+                                controller: 'HomeController',
+                                controllerAs: 'vm'
+                            }
+                        },
+                        data: {
+
+                        }
+                    });
+            })
 
         //ilk filter
         .filter('yesNo', function () {
@@ -84,7 +84,31 @@
                 }
             }
         })
+        //.directive('myEnter', function () {
+        //    return function (scope, element, attrs) {
+        //        element.bind("keydown keypress", function (event) {
+        //            if (event.which === 13) {
+        //                scope.$apply(function () {
+        //                    scope.$eval(attrs.myEnter);
+        //                });
 
-    
+        //                event.preventDefault();
+        //            }
+        //        })
+        //    }
+        //})
+        //.directive('IsNumber', function () {
+        //    return function (element) {
+        //        element.bind("keydown keypress", function (evt) {
+        //            evt = (evt) ? evt : window.event;
+        //            var charCode = (evt.which) ? evt.which : evt.keyCode;
+        //            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        //                return false;
+        //            }
+        //            return true;
+        //        })
+        //    }
+        //})
+
 })();
 

@@ -12,7 +12,7 @@ var appversion = '1.0';
         'ngAnimate',
         'ngSanitize',
         'ui.bootstrap',
-
+        '720kb.datepicker',
         //'ngAnimate', 'ngSanitize', 
         //'ngMessages', 'ngMeterial',
         //'chart.js', 

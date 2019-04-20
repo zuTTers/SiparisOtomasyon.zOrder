@@ -12,7 +12,7 @@
         vm.query = {
             filter: '',
             limit: '25',
-            order: 'Created_Date',
+            order: 'Operation_Id',
             page: 1,
             count: 0
         };

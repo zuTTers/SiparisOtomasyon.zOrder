@@ -338,9 +338,16 @@
     <Content Include="app\SUPPORT\Help\help.module.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="css\sharedCss\angular-datepicker.css" />
+    <Content Include="css\sharedCss\angular-datepicker.min.css" />
+    <Content Include="css\sharedCss\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\angular-datepicker.js" />
+    <Content Include="Scripts\angular-datepicker.min.js" />
+    <Content Include="Scripts\angular-ui.min.js" />
+    <Content Include="css\sharedCss\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="css\sharedCss\bootstrap-reboot.min.css" />
+    <Content Include="css\sharedCss\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\fonts\fontawesome-webfont.svg" />
@@ -593,6 +600,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />

@@ -14,34 +14,61 @@
             <thead>
                 <tr>
                     <th><label>Seç</label></th>
-                    <th ng-click="vm.sort('Product_Id')">
-                        <label>Ürün No</label>
-                        <span class="fa" ng-show="vm.sortKey=='Product_Id' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    <th ng-click="vm.sort('Order_Id')">
+                        <label>Fiş No</label>
+                        <span class="fa" ng-show="vm.sortKey=='Order_Id' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
-                    <th ng-click="vm.sort('Name')">
-                        <label>Ürün Adı</label>
-                        <span class="fa" ng-show="vm.sortKey=='Name'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    <th ng-click="vm.sort('CustomerName')">
+                        <label>Müşteri</label>
+                        <span class="fa" ng-show="vm.sortKey=='CustomerName' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
-                    <th ng-click="vm.sort('IsActive')">
-                        <label>Aktif</label>
-                        <span class="fa" ng-show="vm.sortKey=='IsActive'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    <th ng-click="vm.sort('PhoneNumber')">
+                        <label>Telefon No</label>
+                        <span class="fa" ng-show="vm.sortKey=='PhoneNumber' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
-                    <th ng-click="vm.sort('PhotoUrl')">
-                        <label>Görsel</label>
-                        <span class="fa" ng-show="vm.sortKey=='PhotoUrl'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    <th ng-click="vm.sort('NetTotal')">
+                        <label>N. Tutar</label>
+                        <span class="fa" ng-show="vm.sortKey=='NetTotal' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
+                    <th ng-click="vm.sort('TotalPrice')">
+                        <label>T. Tutar</label>
+                        <span class="fa" ng-show="vm.sortKey=='TotalPrice' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('Debt')">
+                        <label>Alınan Tutar</label>
+                        <span class="fa" ng-show="vm.sortKey=='Debt' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('OrderDate')">
+                        <label>Tarih</label>
+                        <span class="fa" ng-show="vm.sortKey=='OrderDate' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('IsDelivered')">
+                        <label>Teslim</label>
+                        <span class="fa" ng-show="vm.sortKey=='IsDelivered' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('IsPaid')">
+                        <label>Ödeme</label>
+                        <span class="fa" ng-show="vm.sortKey=='IsPaid' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="row in vm.items | filter : filterList | orderBy: vm.sortKey:vm.reverse">
                     <td>
                         <button ng-click="vm.edit('lg',row, true)" class="btn btn-primary"><span class="fa fa-edit"></span></button>
-                        <button ng-click="vm.delete(row.Product_Id)" class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                        <button ng-click="vm.delete(row.Order_Id)" class="btn btn-danger"><span class="fa fa-trash"></span></button>
                     </td>
-                    <td>{{row.Product_Id}}</td>
-                    <td>{{row.Name}}</td>
-                    <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsActive" disabled><span class="slider round"></span></label> <!--{{row.IsActive | yesNo}}--></td>
-                    <td><img src="../../../images/{{row.PhotoUrl}}" alt="product" width="32" height="32" /></td>
+                    <td>{{row.Order_Id}}</td>
+                    <td>{{row.CustomerName}}</td>
+                    <td>{{row.PhoneNumber}}</td>
+                    <td>{{row.NetTotal}}</td>
+                    <td>{{row.TotalPrice}}</td>
+                    <td>{{row.Debt }}</td>
+                    <td>{{row.OrderDate | jsDate | formatDate}}</td>
+                    <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsDelivered" disabled><span class="slider round"></span></label></td>
+                    <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsPaid" disabled><span class="slider round"></span></label></td>
+                    <td><button ng-click="" class="btn btn-primary"><span class="fa fa-print"></span></button></td>
                 </tr>
             </tbody>
         </table>

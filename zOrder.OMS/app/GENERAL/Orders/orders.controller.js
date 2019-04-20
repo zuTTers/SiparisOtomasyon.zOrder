@@ -12,7 +12,7 @@
         vm.query = {
             filter: '',
             limit: '25',
-            order: 'Created_Date',
+            order: 'Order_Id',
             page: 1,
             count: 0
         };
@@ -26,31 +26,31 @@
         };
 
 
-        //function getList() {
-        //    //$filter("chechSession")($filter, response, 1000, 'info');
+        function getList() {
+            //$filter("chechSession")($filter, response, 1000, 'info');
 
-        //    $http.get('/api/Orders/List')
-        //        .then(function (response) {
+            $http.get('/api/Orders/List')
+                .then(function (response) {
 
-        //            vm.data = response.data.retObject;
-        //            vm.query.count = response.data.retObject.length;
-        //            //$filter("showInfo")($filter, response.data.message, 3000, 'info'); // JSON text denenebilir
+                    vm.data = response.data.retObject;
+                    vm.query.count = response.data.retObject.length;
+                    //$filter("showInfo")($filter, response.data.message, 3000, 'info'); // JSON text denenebilir
 
-        //            vm.numOfPages = function () {
-        //                return Math.ceil(vm.query.count / vm.query.limit);
-        //            };
+                    vm.numOfPages = function () {
+                        return Math.ceil(vm.query.count / vm.query.limit);
+                    };
 
-        //            $scope.$watch('vm.query.page + vm.query.limit', function () {
-        //                var begin = ((vm.query.page - 1) * vm.query.limit),
-        //                    end = begin + vm.query.limit;
-        //                vm.items = vm.data.slice(begin, end);
-        //            });
+                    $scope.$watch('vm.query.page + vm.query.limit', function () {
+                        var begin = ((vm.query.page - 1) * vm.query.limit),
+                            end = begin + vm.query.limit;
+                        vm.items = vm.data.slice(begin, end);
+                    });
 
-        //        });
+                });
 
-        //}
+        }
 
-        //getList();
+        getList();
 
         vm.edit = function (size, row, type) {
             var data = {};
