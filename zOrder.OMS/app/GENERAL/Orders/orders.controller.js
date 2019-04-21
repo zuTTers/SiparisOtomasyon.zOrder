@@ -25,7 +25,6 @@
             vm.reverse = !vm.reverse;
         };
 
-
         function getList() {
             //$filter("chechSession")($filter, response, 1000, 'info');
 

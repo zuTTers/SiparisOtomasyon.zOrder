@@ -1,5 +1,9 @@
 ﻿<div class="modal-header" style="background-color:#edff00;">
-    <h3 class="modal-title" id="modal-title">{{vm.Title}}</h3>
+    <h3 class="modal-title" id="modal-title">
+        {{vm.Title}}
+        <b style="text-align:center; background-color:#fa3e0b; border:2px; border-radius:3px; border-color:black; color:silver; padding:2%; width:200px; margin-left:30%;">Tutar : {{vm.totalprice}} <span style="text-transform:uppercase;">TL</span></b>
+
+    </h3>
     <button type="button" class="close" style="margin-top: -24px !important;" ng-click="vm.cancel()"><b style="color:darkred !important;"><span class="fa fa-close"></span></b></button>
 </div>
 <div class="modal-body" id="modal-body">
@@ -47,25 +51,58 @@
             <div class="col-lg-12">
                 <div class="row" ng-if="vm.fastOrder">
                     <div class="col-lg-12">
-                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="Tutar"/> <span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>
+                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="Tutar" /> <span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>
                     </div>
                 </div>
                 <div class="row" ng-if="vm.normalOrder">
                     <div class="col-lg-12">
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <h6 class="text-uppercase"> Ürün Seçiniz</h6>
-                            <select ng-change="vm.getOperations(vm.row.Product_Id)" ng-model="vm.row.Product_Id" class="form-control" name="ofilter" title="İşlem Listesi">
+                            <select ng-model="vm.row.Product_Id" ng-change="vm.getOperations(vm.row.Product_Id)" class="form-control" name="ofilter" title="İşlem Listesi">
                                 <option ng-repeat='at in vm.productDataList' value='{{at.Product_Id}}'>{{at.Name}}</option>
                             </select>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <h6 class="text-uppercase"> Tadilat Seçiniz</h6>
-                            <select ng-change="vm.getOperationPrice(vm.row.Operation_Id)" ng-model="vm.row.Operation_Id" class="form-control" name="ofilter" title="İşlem Listesi">
+                            <select ng-model="vm.row.Operation_Id" ng-change="vm.getOperationPrice(vm.row.Operation_Id)" class="form-control" name="ofilter" title="İşlem Listesi">
                                 <option ng-repeat='at in vm.operationDataList' value='{{at.Operation_Id}}'>{{at.Name}}</option>
                             </select>
                         </div>
+                        <div class="col-lg-2">
+                            <h6 class="text-uppercase"> Miktar</h6>
+                            <input ng-model="vm.row.Quantity" type="text" class="form-control text-uppercase" style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" />
+                        </div>
+                        <div class="col-lg-2">
+                            <h6 class="text-uppercase"> Tutar</h6>
+                            <input ng-model="vm.row.Price" type="text" class="form-control text-uppercase" style="text-transform:uppercase;  margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" />
+                        </div>
+                        <div class="col-lg-2">
+                            <h6 class="text-uppercase"> Ekle</h6>
+                            <button class="btn btn-primary" type="button" ng-click="vm.addOrderDetail(vm.row.Operation_Id,vm.row.Quantity,vm.row.Price)"><span class="fa fa-plus"></span></button>
+                        </div>
                     </div>
-                    <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="Tutar" /> <span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>
+                    <div class="col-lg-12">
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase"><b>Sıra</b></th>
+                                    <th class="text-uppercase"><b>Tadilat</b></th>
+                                    <th class="text-uppercase"><b>Adet</b></th>
+                                    <th class="text-uppercase"><b>B.Tutar</b></th>
+                                    <th class="text-uppercase"><b>Çıkar</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.orderdetailDataList track by $index">
+                                    <td><b>{{$index + 1}}.</b></td>
+                                    <td>{{item.Operation_Text}}</td>
+                                    <td>{{item.Quantity}}</td>
+                                    <td>{{item.Price}}</td>
+                                    <td><button class="btn btn-danger" type="button" ng-click="vm.removeOrderDetail($index + 1)"><span class="fa fa-minus"></span></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -76,14 +113,14 @@
     <div class="col-lg-1">
         <b class="text-muted">Teslim: </b>
         <label class="custom-control custom-checkbox">
-            <input ng-model="vm.row.IsDelivered" type="checkbox" name="btnSiparisKaydet2" class="custom-control-input" />
+            <input ng-model="vm.row.IsDelivered" type="checkbox" class="custom-control-input" />
             <span class="custom-control-indicator"></span>
         </label>
     </div>
     <div class="col-lg-1">
         <b class="text-muted">Ödeme: </b>
         <label class="custom-control custom-checkbox">
-            <input ng-model="vm.row.IsPaid" type="checkbox" name="IsPaid" class="custom-control-input" />
+            <input ng-model="vm.row.IsPaid" type="checkbox" class="custom-control-input" />
             <span class="custom-control-indicator"></span>
         </label>
     </div>

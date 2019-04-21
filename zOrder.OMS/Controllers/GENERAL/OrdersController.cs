@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using zOrder.OMS.Helper;
@@ -33,7 +31,7 @@ namespace zOrder.OMS.Controllers.GENERAL
 
                 using (var db = new zOrderEntities())
                 {
-                    var dataQuery = db.vOrders.OrderBy(x => x.Order_Id).Where(x => 1 == 1);
+                    var dataQuery = db.vOrders.OrderByDescending(x => x.Order_Id).Where(x => 1 == 1);
 
                     #region "Filter"
                     //if (filter != null)
@@ -71,41 +69,63 @@ namespace zOrder.OMS.Controllers.GENERAL
         //[Route("api/Orders/Save/{orders}")]
         [HttpGet, HttpPost]
         [ActionName("Save")]
-        public JsonResult<ReturnValue> Save(Products product)
+        public JsonResult<ReturnValue> Save(OrderData od)
         {
             ReturnValue ret = new ReturnValue();
             try
             {
                 ret.success = false;
-                //using (TransactionScope ts = TransactionUtils.CreateTransactionScope())
+                //using ( ts = new TransactionScope())
                 //{
-                using (zOrderEntities db = new zOrderEntities())
+                    using (zOrderEntities db = new zOrderEntities())
                 {
 
-                    Products nd = null;
-                    if (product.Product_Id.Equals(0))
+                    Orders nd = null;
+                    if (od.order.Order_Id.Equals(0))
                     {
-                        nd = new Products();
-                        //nd.Created_User = usr.uid;
-                        //nd.Created_Date = DateTime.Now;
+                        nd = new Orders();
+                        nd.CreatedUser = 1;
+                        nd.CreatedDate = DateTime.Now;
                     }
                     else
                     {
-                        var rd = db.Products.Where(x => x.Product_Id.Equals(product.Product_Id)).ToList();
+                        var rd = db.Orders.Where(x => x.Order_Id.Equals(od.order.Order_Id)).ToList();
                         if (rd.Count > 0) nd = rd.First();
                     }
                     //nd.Updated_Date = DateTime.Now;
                     //nd.Updated_User = usr.uid;
 
-                    nd.Product_Id = product.Product_Id;
-                    nd.Name = product.Name;
-                    nd.IsActive = product.IsActive;
-                    nd.PhotoUrl = product.PhotoUrl;
-                    if (product.Product_Id.Equals(0))
-                        db.Products.Add(nd);
+                    nd.Order_Id = od.order.Order_Id;
+                    nd.CustomerName = od.order.CustomerName.ToUpper();
+                    nd.PhoneNumber = od.order.PhoneNumber;
+                    nd.Debt = od.order.Debt;
+                    nd.Addition = od.order.Addition;
+                    nd.OrderDate = od.order.OrderDate;
+                    nd.IsDeleted = false;
+                    nd.IsDelivered = od.order.IsDelivered;
+                    nd.IsPaid = od.order.IsPaid;
+                    nd.Discount = od.order.Discount;
 
+                    if (od.order.Order_Id.Equals(0))
+                        db.Orders.Add(nd);
                     db.SaveChanges();
-                    ret.message = "Kaydedildi";
+
+                    foreach (var item in od.orderDetail)
+                    {
+                        OrderDetail md = new OrderDetail();
+
+                        md.Order_Id = nd.Order_Id;
+                        md.Operation_Id = item.Operation_Id;
+                        md.Quantity = item.Quantity;
+                        md.Price = item.Price;
+                        md.TotalPrice = item.TotalPrice;
+
+                        db.OrderDetail.Add(md);
+                    }
+                    db.SaveChanges();
+
+                    ret.retObject = od;
+                    ret.message = "Fiş oluşturuldu";
                     ret.success = true;
                 }
                 //ts.Complete();
@@ -352,5 +372,24 @@ namespace zOrder.OMS.Controllers.GENERAL
 
             return Json(ret);
         }
+    }
+
+    public class OrderData
+    {
+        //    public int Order_Id { get; set; }
+        //    public string CustomerName { get; set; }
+        //    public string PhoneNumber { get; set; }
+        //    public string Debt { get; set; }
+        //    public string Addition { get; set; }
+        //    public string OrderDate { get; set; }
+        //    public Nullable<int> CreatedUser { get; set; }
+        //    public Nullable<System.DateTime> CreatedDate { get; set; }
+        //    public Nullable<bool> IsPaid { get; set; }
+        //    public Nullable<bool> IsDelivered { get; set; }
+        //    public Nullable<bool> IsDeleted { get; set; }
+        //    public Nullable<int> Discount { get; set; }
+
+        public Orders order { get; set; }
+        public List<OrderDetail> orderDetail { get; set; }
     }
 }
