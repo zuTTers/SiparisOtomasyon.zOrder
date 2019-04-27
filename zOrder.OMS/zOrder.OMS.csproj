@@ -206,6 +206,7 @@
     <Compile Include="Controllers\GENERAL\OperationController.cs" />
     <Compile Include="Controllers\GENERAL\OrdersController.cs" />
     <Compile Include="Controllers\GENERAL\ProductController.cs" />
+    <Compile Include="Controllers\GENERAL\ReceiptController.cs" />
     <Compile Include="Controllers\LOGIN\LoginController.cs" />
     <Compile Include="Controllers\GENERAL\UsersController.cs" />
     <Compile Include="Controllers\SUPPORT\HelpController.cs" />
@@ -303,6 +304,13 @@
     <Content Include="app\GENERAL\Products\products.controller.js" />
     <Content Include="app\GENERAL\Products\products.html" />
     <Content Include="app\GENERAL\Products\products.module.js" />
+    <Content Include="app\receipt.html" />
+    <Content Include="app\SUPPORT\Receipt\receipt.config.js" />
+    <Content Include="app\SUPPORT\Receipt\receipt.controller.js" />
+    <Content Include="app\SUPPORT\Receipt\receipt.dialog.controller.js" />
+    <Content Include="app\SUPPORT\Receipt\receipt.dialog.html" />
+    <Content Include="app\SUPPORT\Receipt\receipt.html" />
+    <Content Include="app\SUPPORT\Receipt\receipt.module.js" />
     <Content Include="app\GENERAL\Reports\reports.config.js" />
     <Content Include="app\GENERAL\Reports\reports.controller.js" />
     <Content Include="app\GENERAL\Reports\reports.html" />
@@ -342,6 +350,7 @@
     <Content Include="css\sharedCss\angular-datepicker.css" />
     <Content Include="css\sharedCss\angular-datepicker.min.css" />
     <Content Include="css\sharedCss\bootstrap-datetimepicker.css" />
+    <Content Include="images\logooldu.png" />
     <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-datepicker.min.js" />
     <Content Include="Scripts\angular-ui.min.js" />
@@ -431,7 +440,6 @@
     <Content Include="images\k\7.png" />
     <Content Include="images\k\8.jpg" />
     <Content Include="images\k\9.jpg" />
-    <Content Include="images\loading-bubbles.svg" />
     <Content Include="images\mask.png" />
     <Content Include="images\new_logo.png" />
     <Content Include="images\sidebar-1.jpg" />
@@ -614,6 +622,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\zorder.js" />
+    <Content Include="Templates\ReceiptForm.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

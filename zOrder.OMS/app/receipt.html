@@ -1,0 +1,172 @@
+﻿<html ng-app="app">
+<head>
+    <title>zOrder - Fiş</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Angular Egitim">
+    <meta name="keywords" content="HTML, CSS, XML, JavaScript">
+    <meta name="author" content="Zubeyir Kocalioglu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--external css classes-->
+    <link href="../css/sharedCss/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/angular-datepicker.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/animate.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/chosen.css" rel="stylesheet" />
+    <link href="../css/sharedCss/ImageSelect.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/simplePagination.css" rel="stylesheet" />
+    <!--<link href="../css/sharedCss/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/bootstrap-reboot.min.css" rel="stylesheet" />
+    <link href="../css/sharedCss/bootstrap-grid.min.css" rel="stylesheet" />-->
+    <!--internal css classes-->
+    <link href="../css/sharedCss/main.css" rel="stylesheet" />
+    <link href="../css/myCss/site.css" rel="stylesheet" />
+    <link href="../css/myCss/login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <img src="../images/logooldu.png" alt="fis" width="120" height="60">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="font-size:15px;">
+                <div class="col-lg-12 text-uppercase text-left">
+                    <table>
+                        <tr>
+                            <td>Fiş No</td>
+                            <td>&nbsp; :<samp> {{Order_Id}}</samp></td>
+                        </tr>
+                        <tr>
+                            <td>Tarih</td>
+                            <td>
+                                &nbsp; :<samp> {{CreatedDate |jsDate | formatDate}}</samp>
+                                &nbsp;-&nbsp;<samp>{{CreatedDate |jsDate | formatDate}}</samp>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Personel</td>
+                            <td>&nbsp; :<samp> {{CreatedUserText}}</samp></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <samp class="text-uppercase">Topçular Mah. Osman Gazi Cad. No:21 - 2 Eyüp / İstanbul</samp><br />
+                    <samp><b>AXİS İSTANBUL AVM</b></samp>
+                    <br />
+                    <samp><b>0 212 801 32 11</b></samp>
+                    <br />
+                    <em class="text-muted" style="font-size:8px !important;">www.sampleterzi.com</em>
+                </div>
+            </div>
+            <br />
+            <div class="row text-left" style="float:left;">
+                <div>
+                    <p class="text-uppercase text-center" style="font-size:14px;">Müşteri Bilgileri</p>
+                </div>
+                <div style="font-size:13px;">
+                    <samp>Müşteri Adı: </samp><strong>{{CustomerName}}</strong>
+                    <br />
+                    <samp>Telefon: </samp><abbr>0</abbr>{{PhoneNumber}}
+                    <br />
+                    <samp>Teslim Tarihi: </samp>{{OrderDate |jsDate | formatDate}}
+                    <br />
+                    <samp>Verilen:</samp>{{Debt}}
+                    <br />
+                    <samp>Durum:</samp><b>{{IsPaid ? true : 'Ödendi' : 'Ödenmedi'}}</b>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="float:left; font-size:15px;">
+                <table border="1" class="table table-bordered" style="border:4px !important; padding-right:5px; margin-right:10px; font-size:15px;">
+                    <thead style="font-size:10px !important; font-weight:500 !important; border:5px !important;">
+                        <tr>
+                            <th>Ürün</th>
+                            <th>İşlem</th>
+                            <th>Adet</th>
+                            <th>B.Tutar</th>
+                            <th>T.Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size:13px; border:groove;">
+                        <tr ng-repeat="item in DetailList" style="font-size:9px; border:groove;">
+                            <td>{{item.ProductName}}</td>
+                            <td>{{item.OperationText}}</td>
+                            <td>{{item.Quantity}}</td>
+                            <td>{{item.Price}} ₺</td>
+                            <td style="padding-right:5px;">{{item.TotalPrice}} ₺</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-condensed" style="float:left;">
+                    <tr>
+                        <td></td>
+                        <td>Toplam Parça:<strong>{{TQuantity}}</strong></td>
+                        <td>Toplam Tutar:<strong>{{TTotalPrice}} ₺</strong></td>
+                        <td>İndirimli Tutar:<strong>{{NTotalPrice}} ₺</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <p>Açıklama:<strong>{{Addition}}</strong></p>
+            </div>
+            <br />
+            <div class="row" style="float:left;">
+                <div class="col-lg-12" style="font-size:10px !important;">
+                    <em style="font-size:15px !important;"><i>SAMPLE Terzi'yi Tercih Ettiğiniz İçin Teşekkür Ederiz.</i></em>
+                    <em style="font-size:15px !important;" class="text-uppercase">Ürün verenler aşağıdaki şartları kabul etmiştir.</em>
+                    <em style="font-size:15px !important;">30 gün içerisinde alınmayan ürünlerden ve üretimden kaynaklı ürün bozulmalarından firmamız sorumlu değildir.</em>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--------------------------------------all external js documents----------------------------------------------->
+    <script src="../scripts/modernizr-2.8.3.js"></script>
+    <script src="../scripts/respond.min.js"></script>
+    <script src="../Scripts/moment.min.js"></script>
+    <!--jQuery plugins-->
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/jquery.validate.min.js"></script>
+    <script src="../scripts/jquery.simplePagination.js"></script>
+    <script src="../scripts/jquery-ui.min.js"></script>
+    <script src="../scripts/ImageSelect.jquery.js"></script>
+    <!--bootstrap plugins-->
+    <script src="../scripts/bootstrap.min.js"></script>
+    <script src="../scripts/bootstrap-select.js"></script>
+    <script src="../scripts/bootstrap-notify.js"></script>
+    <script src="../scripts/bootstrap-checkbox-radio-switch.js"></script>
+    <!--angularjs plugins-->
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-ui-router.js"></script>
+    <script src="../scripts/angular-ui.min.js"></script>
+    <script src="../scripts/angular-datepicker.min.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
+    <script src="../scripts/angular-animate.min.js"></script>
+    <script src="../scripts/ui-bootstrap-2.5.0.js"></script>
+    <script src="../scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <!--internal js documents-->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/fontawesome.min.js"></script>
+    <script src="../scripts/chosen.jquery.js"></script>
+    <script src="../scripts/echarts.min.js"></script>
+    <script src="../scripts/echarts.common.min.js"></script>
+    <script src="../scripts/zorder.js"></script>
+    <!--<script src="../scripts/index.simple.js"></script>-->
+    <!-------------------------------------------------------------------------------------------------------------->
+    <!--app modules and configs-->
+    <script src="app.config.js"></script>
+    <script src="app.js"></script>
+    <script src="login.js"></script>
+
+    <!--app controllers-->
+    <script src="SUPPORT/Receipt/receipt.module.js"></script>
+    <script src="SUPPORT/Receipt/receipt.config.js"></script>
+    <script src="SUPPORT/Receipt/receipt.controller.js"></script>
+    <script src="SUPPORT/Receipt/receipt.dialog.controller.js"></script>
+</body>
+</html>

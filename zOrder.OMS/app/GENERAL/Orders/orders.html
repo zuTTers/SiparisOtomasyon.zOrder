@@ -68,7 +68,9 @@
                     <td>{{row.OrderDate | jsDate | formatDate}}</td>
                     <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsDelivered" disabled><span class="slider round"></span></label></td>
                     <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsPaid" disabled><span class="slider round"></span></label></td>
-                    <td><button ng-click="" class="btn btn-primary"><span class="fa fa-print"></span></button></td>
+                    <td><button ng-click="vm.receipt(row.Order_Id)" class="btn btn-primary"><span class="fa fa-print"></span></button></td>
+                    <!--<td><a ui-sref="Orders.Receipt({id:{{row.Order_Id}}})">RC</a></button></td>-->
+
                 </tr>
             </tbody>
         </table>

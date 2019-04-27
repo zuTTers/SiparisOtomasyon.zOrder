@@ -5,7 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using zOrder.OMS.Helper;
 using zOrder.OMS.Models;
-
+                
 namespace zOrder.OMS.Controllers.GENERAL
 {
     public class OrdersController : ApiController
@@ -18,7 +18,7 @@ namespace zOrder.OMS.Controllers.GENERAL
         {
             ReturnValue ret = new ReturnValue();
 
-            try
+            try                                                                    
             {
                 ret.success = false;
                 //Shared.CheckSession();
@@ -376,19 +376,6 @@ namespace zOrder.OMS.Controllers.GENERAL
 
     public class OrderData
     {
-        //    public int Order_Id { get; set; }
-        //    public string CustomerName { get; set; }
-        //    public string PhoneNumber { get; set; }
-        //    public string Debt { get; set; }
-        //    public string Addition { get; set; }
-        //    public string OrderDate { get; set; }
-        //    public Nullable<int> CreatedUser { get; set; }
-        //    public Nullable<System.DateTime> CreatedDate { get; set; }
-        //    public Nullable<bool> IsPaid { get; set; }
-        //    public Nullable<bool> IsDelivered { get; set; }
-        //    public Nullable<bool> IsDeleted { get; set; }
-        //    public Nullable<int> Discount { get; set; }
-
         public Orders order { get; set; }
         public List<OrderDetail> orderDetail { get; set; }
     }

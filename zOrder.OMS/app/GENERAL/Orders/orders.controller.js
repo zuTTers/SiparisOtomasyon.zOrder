@@ -84,10 +84,17 @@
                     getList();
                     $filter("showInfo")($filter, 'Silindi', 1000, 'info'); // JSON text denenebilir
                 });
-
         };
 
-
+        vm.receipt = function (row) {
+            
+            //$state.go('Receipt');
+            //window.open('receipt.html','_target');
+            var url = $state.href('Receipt', {
+                Order_Id: row
+            });
+            window.open(url, '_blank');
+        }
 
     }
 
