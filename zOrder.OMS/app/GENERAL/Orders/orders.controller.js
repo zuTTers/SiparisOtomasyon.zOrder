@@ -34,7 +34,6 @@
 
             $http.get('/api/Orders/List')
                 .then(function (response) {
-
                     vm.data = response.data.retObject;
                     vm.query.count = response.data.retObject.length;
                     //$filter("showInfo")($filter, response.data.message, 3000, 'info'); // JSON text denenebilir
@@ -50,7 +49,6 @@
                     });
 
                 });
-
         }
 
         getList();

@@ -350,6 +350,7 @@
     <Content Include="css\sharedCss\angular-datepicker.css" />
     <Content Include="css\sharedCss\angular-datepicker.min.css" />
     <Content Include="css\sharedCss\bootstrap-datetimepicker.css" />
+    <Content Include="images\loading.gif" />
     <Content Include="images\logooldu.png" />
     <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-datepicker.min.js" />

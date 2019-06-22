@@ -10,8 +10,45 @@ namespace zOrder.OMS.Controllers.GENERAL
 {
     public class OrdersController : ApiController
     {
-        // LIST: api/Orders
+        #region ViewModel
+        public class OrderData
+        {
+            public Orders order { get; set; }
+            public List<OrderDetail> orderDetail { get; set; }
+        }
 
+        public class OrderViewModel
+        {
+            public int Order_Id { get; set; }
+            public string CustomerName { get; set; }
+            public string PhoneNumber { get; set; }
+            public string Debt { get; set; }
+            public string Addition { get; set; }
+            public Nullable<System.DateTime> OrderDate { get; set; }
+            public Nullable<int> CreatedUser { get; set; }
+            public Nullable<System.DateTime> CreatedDate { get; set; }
+            public Nullable<bool> IsPaid { get; set; }
+            public Nullable<bool> IsDelivered { get; set; }
+            public Nullable<bool> IsDeleted { get; set; }
+            public Nullable<int> Discount { get; set; }
+
+        }
+
+        public class OrderDetailViewModel
+        {
+            public int OrderDetail_Id { get; set; }
+            public Nullable<int> Order_Id { get; set; }
+            public Nullable<int> Operation_Id { get; set; }
+            public string Operation_Text { get; set; }
+            public Nullable<int> Quantity { get; set; }
+            public Nullable<decimal> Price { get; set; }
+            public Nullable<decimal> TotalPrice { get; set; }
+
+        }
+
+        #endregion
+
+        // LIST: api/Orders
         [HttpGet, HttpPost]
         [ActionName("List")]
         public JsonResult<ReturnValue> List()
@@ -237,8 +274,7 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
-        // LIST: api/Orders
-
+        // LIST: api/ProductList
         [HttpGet, HttpPost]
         [ActionName("ProductList")]
         public JsonResult<ReturnValue> ProductList()
@@ -300,8 +336,7 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
-        // LIST: api/Orders
-
+        // LIST: api/OperationList
         [HttpGet, HttpPost]
         [ActionName("OperationList")]
         public JsonResult<ReturnValue> OperationList(int id)
@@ -369,8 +404,7 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
-        // LIST: api/Orders
-
+        // LIST: api/PriceList
         [HttpGet, HttpPost]
         [ActionName("PriceList")]
         public JsonResult<ReturnValue> PriceList(int id)
@@ -439,38 +473,4 @@ namespace zOrder.OMS.Controllers.GENERAL
         }
     }
 
-    public class OrderData
-    {
-        public Orders order { get; set; }
-        public List<OrderDetail> orderDetail { get; set; }
-    }
-
-    public class OrderViewModel
-    {
-        public int Order_Id { get; set; }
-        public string CustomerName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Debt { get; set; }
-        public string Addition { get; set; }
-        public Nullable<System.DateTime> OrderDate { get; set; }
-        public Nullable<int> CreatedUser { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<bool> IsPaid { get; set; }
-        public Nullable<bool> IsDelivered { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
-        public Nullable<int> Discount { get; set; }
-
-    }
-
-    public class OrderDetailViewModel
-    {
-        public int OrderDetail_Id { get; set; }
-        public Nullable<int> Order_Id { get; set; }
-        public Nullable<int> Operation_Id { get; set; }
-        public string Operation_Text { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-
-    }
 }
