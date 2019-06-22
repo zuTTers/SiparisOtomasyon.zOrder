@@ -1,7 +1,7 @@
-﻿<div class="modal-header" style="background-color:#edff00;">
+﻿<div class="modal-header" style="background-color:#12ae00;">
     <h3 class="modal-title" id="modal-title">
-        {{vm.Title}}
-        <b style="text-align:center; background-color:#fa3e0b; border:2px; border-radius:3px; border-color:black; color:silver; padding:2%; width:200px; margin-left:30%;">Tutar : {{vm.totalprice}} <span style="text-transform:uppercase;">TL</span></b>
+        {{vm.Title}} <span ng-if="vm.row.Order_Id">- {{vm.row.Order_Id}}</span> 
+        <b class="pull-right" style="background-color:white; min-width:200px; width:240px; text-align:center; margin-right:34%; border-radius:10px;">Tutar : <span style="text-transform:uppercase;">{{vm.totalprice}} TL</span></b>
 
     </h3>
     <button type="button" class="close" style="margin-top: -24px !important;" ng-click="vm.cancel()"><b style="color:darkred !important;"><span class="fa fa-close"></span></b></button>
@@ -12,15 +12,15 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h6 class="text-uppercase">Telefon No</h6>
-                    <input ng-model="vm.row.PhoneNumber" type="number" maxlength="10" class="form-control" name="PhoneNumber" tabindex="1" placeholder="555 444 33 22" value="" ng-keypress="vm.IsNumber(event)" maxlength="10" />
+                    <input ng-model="vm.row.PhoneNumber" type="text" maxlength="10" class="form-control" name="PhoneNumber" tabindex="1" placeholder="555 444 33 22" value="" ng-keypress="vm.IsNumber(event)" />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h6 class="text-uppercase">Teslim Tarihi</h6>
-                    <datepicker date-format="dd-MM-yyyy" date-set="{{vm.minDate}}" date-min-limit="{{vm.minDate}}" selector="form-control">
+                    <datepicker date-format="dd-MM-yyyy" selector="form-control">
                         <div class="input-group">
-                            <input ng-model="vm.row.OrderDate" class="form-control" placeholder="Tarih seç" />
+                            <input ng-model="vm.row.OrderDate" class="form-control" placeholder="Tarih seç" type="text" tabindex="4" style="margin-top: 0px;" />
                             <span class="input-group-addon" style="cursor: pointer">
-                                <i class="fa fa-lg fa-calendar"></i>
+                                <i class="fa fa-calendar"></i>
                             </span>
                         </div>
                     </datepicker>
@@ -35,16 +35,16 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
                     <h6 class="text-uppercase"> Alınan Tutar </h6>
-                    <input ng-model="vm.row.Debt" type="number" ng-keypress="vm.IsNumber(event)" maxlength="5" class="form-control text-uppercase" placeholder="0" tabindex="4" />
+                    <input ng-model="vm.row.Debt" type="text" ng-keypress="vm.IsNumber(event)" maxlength="5" class="form-control text-uppercase" placeholder="0" tabindex="4" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div style="float: left;margin-left: 18%; height: 60px;">
-                <input ng-model="vm.fastOrder" type="button" class="btn btn-default" ng-click="vm.showfastOrder()" value="Hızlı İşlem" />
+                <input ng-model="vm.fastOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showfastOrder()" value="Hızlı İşlem" />
             </div>
             <div style="float: left; height: 60px;">
-                <input ng-model="vm.normalOrder" type="button" class="btn btn-default" ng-click="vm.shownormalOrder()" value="Normal İşlem" />
+                <input ng-model="vm.normalOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.shownormalOrder()" value="Normal İşlem" />
             </div>
         </div>
         <div class="row">

@@ -8,23 +8,38 @@
     function OrdersDialogController($scope, $state, $http, $timeout, $uibModalInstance, $filter, data) {
         var vm = this;
 
-        vm.row = data.row;
-        vm.edit = data.edit;
-
-        if (vm.edit) { vm.Title = 'Fiş Detay'; } else { vm.Title = 'Fiş Çıkar'; }
-
-        vm.fastOrder = true;
-        vm.normalOrder = false;
-
-        vm.showfastOrder = function () { vm.fastOrder = true; vm.normalOrder = false; }
-        vm.shownormalOrder = function () { vm.normalOrder = true; vm.fastOrder = false; }
-
         vm.minDate = new Date().toDateString();
 
         vm.operationDataList = [];
         vm.productDataList = [];
         vm.orderdetailDataList = [];
 
+        vm.fastOrder = true;
+        vm.normalOrder = false;
+
+        vm.row = data.order;
+        vm.edit = data.edit;
+        
+        if (!vm.edit) { vm.Title = 'Yeni Fiş'; }
+
+        if (vm.edit) {
+            vm.Title = 'Fiş Detay';
+            vm.orderdetailDataList = data.orderDetail;
+            vm.row.OrderDate = $filter("jsDate")($filter("formatDate")(vm.row.OrderDate));
+            //vm.row.OrderDate = new Date(vm.row.OrderDate).toDateString();
+            vm.totalprice = 0;
+
+            if (vm.orderdetailDataList.length > 0) {
+                $.each(vm.orderdetailDataList, function (i, v) {
+                    vm.totalprice += v.TotalPrice;
+                });
+                vm.fastOrder = false;
+                vm.normalOrder = true;
+            }
+        }
+
+        vm.showfastOrder = function () { vm.fastOrder = true; vm.normalOrder = false; }
+        vm.shownormalOrder = function () { vm.normalOrder = true; vm.fastOrder = false; }
 
         /*Textbox'ın sadece int değer almasını sağlar.*/
         vm.IsNumber = function (evt) {
@@ -53,8 +68,17 @@
         //vm.data = [];
 
         vm.ok = function () {
-            if (!vm.row.IsDelivered) { vm.row.IsDelivered = false;}
-            if (!vm.row.IsPaid) { vm.row.Paid = false;}
+            if (!vm.row.IsDelivered) { vm.row.IsDelivered = false; }
+            if (!vm.row.IsPaid) { vm.row.Paid = false; }
+            if (vm.fastOrder) {
+                vm.orderdetailDataList = [{
+                    Operation_Id: "1141",
+                    Operation_Text: "Diğer",
+                    Price: vm.row.Price,
+                    Quantity: 1,
+                    TotalPrice: vm.row.Price
+                }];
+            }
             vm.row.OrderDate = new Date(vm.row.OrderDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
 
             var input = {
@@ -100,11 +124,12 @@
                     vm.row.Price = response.data.retObject.Price;
                 });
         }
-        
-        vm.totalprice = 0;
+
         //vm.row.Price = 1;
 
         vm.addOrderDetail = function (opt, qty, prc) {
+            vm.totalprice = 0;
+
             var orderdetail = {};
             vm.totalprice += qty * prc;
 
@@ -126,6 +151,9 @@
             vm.orderdetailDataList.splice(index - 1, 1);
         }
 
+        if (!vm.totalprice) {
+            vm.totalprice = 0;
+        }
 
     }
 })();

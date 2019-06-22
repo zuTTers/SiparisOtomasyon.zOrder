@@ -20,10 +20,14 @@
         vm.filter = {};
         vm.data = [];
 
+
         vm.sort = function (keyname) {
             vm.sortKey = keyname;
             vm.reverse = !vm.reverse;
         };
+
+        vm.sort(vm.query.order);
+
 
         function getList() {
             //$filter("chechSession")($filter, response, 1000, 'info');
@@ -51,35 +55,76 @@
 
         getList();
 
+
         vm.edit = function (size, row, type) {
             var data = {};
-            //var parentElem = row ?
-            //    angular.element($document[0].querySelector('.modal-demo ' + row)) : undefined;
-            var modalInstance = $uibModal.open({
-                animation: OrdersController.animationsEnabled,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'GENERAL/Orders/orders.dialog.html',
-                controller: 'OrdersDialogController',
-                controllerAs: 'vm',
-                size: size,
-                //appendTo: parentElem,
-                resolve: {
-                    data: function () {
-                        return data = { row, edit: type };
+
+            vm.main = {};
+            vm.detail = {};
+
+            if (row) {
+                $http({
+                    method: 'GET',
+                    url: '/api/Orders/Detail?id=' + row.Order_Id
+                }).then(function (response) {
+                    vm.main = response.data.retObject.order;
+                    vm.detail = response.data.retObject.orderdetail;
+
+                    var modalInstance = $uibModal.open({
+                        animation: OrdersController.animationsEnabled,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'GENERAL/Orders/orders.dialog.html',
+                        controller: 'OrdersDialogController',
+                        controllerAs: 'vm',
+                        size: size,
+                        //appendTo: parentElem,
+                        resolve: {
+                            data: function () {
+                                return data = { row: row, edit: type, order: vm.main, orderDetail: vm.detail };
+                            }
+                        }
+                    });
+                    modalInstance.result.then(function (row) {
+                        OrdersDialogController.selected = row;
+                    }, function () {
+                        $log.info('Modal dismissed at: ' + new Date());
+                    });
+
+                });
+            }
+            else {
+                var modalInstance = $uibModal.open({
+                    animation: OrdersController.animationsEnabled,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'GENERAL/Orders/orders.dialog.html',
+                    controller: 'OrdersDialogController',
+                    controllerAs: 'vm',
+                    size: size,
+                    //appendTo: parentElem,
+                    resolve: {
+                        data: function () {
+                            return data = { row: row, edit: type };
+                        }
                     }
-                }
-            });
-            modalInstance.result.then(function (row) {
-                OrdersDialogController.selected = row;
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
+                });
+                modalInstance.result.then(function (row) {
+                    OrdersDialogController.selected = row;
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            }
+
+
         };
 
         vm.delete = function (id) {
-            $http.get('/api/Product/Delete?id=' + id)
-                .then(function (response) {
+            $http({
+                method: 'GET',
+                url: '/api/Orders/Delete?id=' + id
+            }).then(function (response) {
+                    //alert('test sil :' + response.data.retObject);
                     //$state.reload();
                     getList();
                     $filter("showInfo")($filter, 'Silindi', 1000, 'info'); // JSON text denenebilir
@@ -94,7 +139,39 @@
                 Order_Id: row
             });
             window.open(url, '_blank');
+
+            //var url = $state.href('Receipt', {
+            //    Order_Id: row
+            //});
+            //window.open(url, '_blank');
         }
+
+        //vm.getDetailData = function (id) {
+        //    vm.row = [];
+
+        //    $http({
+        //        method: 'GET',
+        //        url: '/api/Orders/Detail?id=' + id
+        //    }).then(function (data) {
+        //        console.log('get', data);
+
+        //        var data = data.data;
+        //        var status = data.status;
+        //        var statusText = data.statusText;
+        //        var headers = data.headers;
+        //        var config = data.config;
+        //        $scope.text = data;
+
+
+        //        vm.row = response.data.retObject;
+
+        //    }).catch(function (data, status) {
+        //        console.error('Gists error', response.status, response.data);
+        //    }).finally(function () {
+        //        console.log("finally finished gists");
+        //    });
+
+        //}
 
     }
 

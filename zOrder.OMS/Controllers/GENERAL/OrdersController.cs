@@ -5,7 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using zOrder.OMS.Helper;
 using zOrder.OMS.Models;
-                
+
 namespace zOrder.OMS.Controllers.GENERAL
 {
     public class OrdersController : ApiController
@@ -18,7 +18,7 @@ namespace zOrder.OMS.Controllers.GENERAL
         {
             ReturnValue ret = new ReturnValue();
 
-            try                                                                    
+            try
             {
                 ret.success = false;
                 //Shared.CheckSession();
@@ -66,6 +66,71 @@ namespace zOrder.OMS.Controllers.GENERAL
             return Json(ret);
         }
 
+        //[Route("api/Orders/Detail/{id}")]
+        [HttpGet, HttpPost]
+        [ActionName("Detail")]
+        public JsonResult<ReturnValue> Detail(int id)
+        {
+            ReturnValue ret = new ReturnValue();
+            OrderData detail = null;
+
+            try
+            {
+                ret.success = false;
+                //Shared.CheckSession();
+                bool isExport = false;
+
+                //var query = "";
+                //var filter = new Products();
+
+
+                using (var db = new zOrderEntities())
+                {
+                    OrderViewModel order = new OrderViewModel();
+                    List<OrderDetailViewModel> orderdetail = new List<OrderDetailViewModel>();
+
+                    order = db.Orders.Where(x => x.Order_Id == id).Select(x => new OrderViewModel
+                    {
+                        Order_Id = x.Order_Id,
+                        OrderDate = x.OrderDate,
+                        PhoneNumber = x.PhoneNumber,
+                        Addition = x.Addition,
+                        CreatedDate = x.CreatedDate,
+                        CustomerName = x.CustomerName,
+                        CreatedUser = x.CreatedUser,
+                        Debt = x.Debt,
+                        Discount = x.Discount,
+                        IsDeleted = x.IsDeleted,
+                        IsDelivered = x.IsDelivered,
+                        IsPaid = x.IsPaid
+                    }).First();
+
+                    orderdetail = db.OrderDetail.Where(x => x.Order_Id == id).Select(x => new OrderDetailViewModel
+                    {
+                        OrderDetail_Id = x.OrderDetail_Id,
+                        Order_Id = x.Order_Id,
+                        Operation_Id = x.Operation_Id,
+                        Operation_Text = db.Operations.Where(z => z.Operation_Id == x.Operation_Id).FirstOrDefault().Name,
+                        Price = x.Price,
+                        Quantity = x.Quantity,
+                        TotalPrice = x.TotalPrice
+                    }).ToList();
+
+                    ret.retObject = new { order, orderdetail };
+
+                }
+                ret.success = true;
+                ret.message = "Listelendi";
+            }
+            catch (Exception ex)
+            {
+                ret.success = false;
+                ret.error = ex.Message;
+            }
+
+            return Json(ret);
+        }
+
         //[Route("api/Orders/Save/{orders}")]
         [HttpGet, HttpPost]
         [ActionName("Save")]
@@ -77,7 +142,7 @@ namespace zOrder.OMS.Controllers.GENERAL
                 ret.success = false;
                 //using ( ts = new TransactionScope())
                 //{
-                    using (zOrderEntities db = new zOrderEntities())
+                using (zOrderEntities db = new zOrderEntities())
                 {
 
                     Orders nd = null;
@@ -110,22 +175,24 @@ namespace zOrder.OMS.Controllers.GENERAL
                         db.Orders.Add(nd);
                     db.SaveChanges();
 
+                    db.OrderDetail.RemoveRange(db.OrderDetail.Where(x => x.Order_Id == od.order.Order_Id).ToList());
+                    db.SaveChanges();
+
                     foreach (var item in od.orderDetail)
                     {
                         OrderDetail md = new OrderDetail();
-
                         md.Order_Id = nd.Order_Id;
                         md.Operation_Id = item.Operation_Id;
                         md.Quantity = item.Quantity;
                         md.Price = item.Price;
                         md.TotalPrice = item.TotalPrice;
-
                         db.OrderDetail.Add(md);
                     }
                     db.SaveChanges();
 
+                    
                     ret.retObject = od;
-                    ret.message = "Fiş oluşturuldu";
+                    ret.message = "Kaydedildi";
                     ret.success = true;
                 }
                 //ts.Complete();
@@ -151,13 +218,11 @@ namespace zOrder.OMS.Controllers.GENERAL
                 ret.success = false;
                 using (zOrderEntities db = new zOrderEntities())
                 {
-                    var at = db.Orders.Where(x => x.Order_Id.Equals(id)).ToList();
-                    var atDet = db.OrderDetail.Where(x => x.Order_Id.Equals(id)).ToList();
-                    if (at.Count > 0)
-                    {
-                        db.OrderDetail.Remove(atDet.First());
-                        db.Orders.Remove(at.First());
-                    }
+                    //Orders nd = null;
+
+                    var rd = db.Orders.Where(x => x.Order_Id == id).First();
+                    rd.IsDeleted = true; // silme işlemi
+
                     db.SaveChanges();
 
                     ret.message = "Silindi";
@@ -259,7 +324,7 @@ namespace zOrder.OMS.Controllers.GENERAL
                     var dataQuery = db.Operations.OrderBy(x => x.Operation_Id).Where(x => 1 == 1);
 
                     if (id == null)
-                        dataQuery = dataQuery.Where(x => x.IsActive == true);  
+                        dataQuery = dataQuery.Where(x => x.IsActive == true);
                     else
                         dataQuery = dataQuery.Where(x => x.Product_Id == id && x.IsActive == true);
 
@@ -378,5 +443,34 @@ namespace zOrder.OMS.Controllers.GENERAL
     {
         public Orders order { get; set; }
         public List<OrderDetail> orderDetail { get; set; }
+    }
+
+    public class OrderViewModel
+    {
+        public int Order_Id { get; set; }
+        public string CustomerName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Debt { get; set; }
+        public string Addition { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
+        public Nullable<int> CreatedUser { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<bool> IsPaid { get; set; }
+        public Nullable<bool> IsDelivered { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<int> Discount { get; set; }
+
+    }
+
+    public class OrderDetailViewModel
+    {
+        public int OrderDetail_Id { get; set; }
+        public Nullable<int> Order_Id { get; set; }
+        public Nullable<int> Operation_Id { get; set; }
+        public string Operation_Text { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+
     }
 }
