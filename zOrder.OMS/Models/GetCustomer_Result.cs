@@ -10,19 +10,12 @@
 namespace zOrder.OMS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class vOrders
+    public partial class GetCustomer_Result
     {
-        public int Order_Id { get; set; }
         public string CustomerName { get; set; }
         public string PhoneNumber { get; set; }
         public string Debt { get; set; }
         public string Addition { get; set; }
-        public System.DateTime OrderDate { get; set; }
-        public bool IsDelivered { get; set; }
-        public int Discount { get; set; }
-        public Nullable<decimal> NetTotal { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
     }
 }

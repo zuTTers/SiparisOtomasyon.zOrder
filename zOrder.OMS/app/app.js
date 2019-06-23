@@ -69,7 +69,7 @@
         .filter('showInfo', function () {
             return function ($filter, msgtext, delay, msgtype) {
                 try {
-                    if (delay == undefined) delay = 2000;
+                    if (delay == undefined) delay = 1000;
                     $.notify({
                         icon: 'fa fa-info',
                         message: msgtext,

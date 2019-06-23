@@ -4,12 +4,27 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="zOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="zOrder.AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6013: The table/view 'KTOtomasyon.dbo.Calendar' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'zOrder.App.dbo.Calendar' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Calendar">
           <Property Name="CalendarDate" Type="datetime" />
         </EntityType>-->
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="PhoneNumber" Type="int" />
+        </EntityType>
         <EntityType Name="Logs">
           <Key>
             <PropertyRef Name="Log_Id" />
@@ -48,6 +63,7 @@ warning 6013: The table/view 'KTOtomasyon.dbo.Calendar' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Price" Type="int" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Barcode" Type="int" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -101,17 +117,38 @@ warning 6013: The table/view 'KTOtomasyon.dbo.Calendar' does not have a primary 
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vCustomers">
+warning 6002: The table/view 'zOrder.App.dbo.vBarcodeList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vBarcodeList">
           <Key>
-            <PropertyRef Name="CustomerName" />
-            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Barcode" />
+            <PropertyRef Name="Operation_Id" />
           </Key>
-          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Barcode" Type="int" Nullable="false" />
+          <Property Name="Product_Id" Type="int" />
+          <Property Name="PName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Operation_Id" Type="int" Nullable="false" />
+          <Property Name="OName" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vLastTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vCustomers">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="PhoneNumber" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'zOrder.App.dbo.vLastTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vLastTotalOrder">
           <Key>
             <PropertyRef Name="Sira" />
@@ -121,7 +158,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vLastTotalOrder' does not have a p
           <Property Name="SipTutar" Type="decimal" Precision="38" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vOrderQYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vOrderQYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vOrderQYear">
           <Key>
             <PropertyRef Name="Ocak" />
@@ -152,26 +189,30 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vOrderQYear' does not have a prima
           <Property Name="Aralik" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vOrders">
           <Key>
             <PropertyRef Name="Order_Id" />
             <PropertyRef Name="CustomerName" />
             <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Addition" />
+            <PropertyRef Name="OrderDate" />
+            <PropertyRef Name="IsDelivered" />
+            <PropertyRef Name="Discount" />
           </Key>
           <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Debt" Type="nvarchar(max)" />
-          <Property Name="Addition" Type="nvarchar(max)" />
-          <Property Name="OrderDate" Type="datetime" />
-          <Property Name="IsDelivered" Type="bit" />
-          <Property Name="Discount" Type="int" />
+          <Property Name="Addition" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDelivered" Type="bit" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
           <Property Name="NetTotal" Type="decimal" Precision="38" Scale="6" />
           <Property Name="TotalPrice" Type="decimal" Precision="38" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vOrderWYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vOrderWYear' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vOrderWYear">
           <Key>
             <PropertyRef Name="Ocak" />
@@ -202,7 +243,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vOrderWYear' does not have a prima
           <Property Name="Aralik" Type="decimal" Precision="38" Scale="6" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vTodayTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vTodayTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vTodayTotalOrder">
           <Key>
             <PropertyRef Name="Sira" />
@@ -212,7 +253,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTodayTotalOrder' does not have a 
           <Property Name="SipTutar" Type="decimal" Precision="38" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vTotalOrder">
           <Key>
             <PropertyRef Name="Sira" />
@@ -289,6 +330,9 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="GetCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PhoneNumber" Type="int" Mode="In" />
+        </Function>
         <Function Name="OrderCalender" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
         </Function>
@@ -296,7 +340,8 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <Parameter Name="firstodate" Type="datetime" Mode="In" />
           <Parameter Name="lastodate" Type="datetime" Mode="In" />
         </Function>
-        <EntityContainer Name="zOrderModelStoreContainer">
+        <EntityContainer Name="zOrderAppModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mails" EntityType="Self.Mails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="dbo" store:Type="Tables" />
@@ -304,9 +349,27 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vBarcodeList" EntityType="Self.vBarcodeList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vBarcodeList].[Barcode] AS [Barcode], 
+    [vBarcodeList].[Product_Id] AS [Product_Id], 
+    [vBarcodeList].[PName] AS [PName], 
+    [vBarcodeList].[Operation_Id] AS [Operation_Id], 
+    [vBarcodeList].[OName] AS [OName], 
+    [vBarcodeList].[Price] AS [Price]
+    FROM [dbo].[vBarcodeList] AS [vBarcodeList]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vCustomers" EntityType="Self.vCustomers" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vCustomers].[CustomerName] AS [CustomerName], 
+    [vCustomers].[Customer_Id] AS [Customer_Id], 
+    [vCustomers].[Name] AS [Name], 
+    [vCustomers].[Birthday] AS [Birthday], 
+    [vCustomers].[Gender] AS [Gender], 
+    [vCustomers].[Address] AS [Address], 
+    [vCustomers].[Mail] AS [Mail], 
+    [vCustomers].[Password] AS [Password], 
+    [vCustomers].[IsDeleted] AS [IsDeleted], 
+    [vCustomers].[IsActive] AS [IsActive], 
     [vCustomers].[PhoneNumber] AS [PhoneNumber]
     FROM [dbo].[vCustomers] AS [vCustomers]</DefiningQuery>
           </EntitySet>
@@ -407,7 +470,22 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="zOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="zOrder.AppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PhoneNumber" Type="Int32" />
+        </EntityType>
         <EntityType Name="Logs">
           <Key>
             <PropertyRef Name="Log_Id" />
@@ -447,6 +525,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Barcode" Type="Int32" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Operations_Products" FromRole="Operations" ToRole="Products" />
           <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetail_Operations" FromRole="Operations" ToRole="OrderDetail" />
         </EntityType>
@@ -508,13 +587,32 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <NavigationProperty Name="Mails" Relationship="Self.FK_Mails_Users" FromRole="Users" ToRole="Mails" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_CreatedUser" FromRole="Users" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="vBarcodeList">
+          <Key>
+            <PropertyRef Name="Barcode" />
+            <PropertyRef Name="Operation_Id" />
+          </Key>
+          <Property Name="Barcode" Type="Int32" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" />
+          <Property Name="PName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operation_Id" Type="Int32" Nullable="false" />
+          <Property Name="OName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+        </EntityType>
         <EntityType Name="vCustomers">
           <Key>
-            <PropertyRef Name="CustomerName" />
-            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Customer_Id" />
           </Key>
-          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PhoneNumber" Type="Int32" />
         </EntityType>
         <EntityType Name="vLastTotalOrder">
           <Key>
@@ -558,15 +656,19 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             <PropertyRef Name="Order_Id" />
             <PropertyRef Name="CustomerName" />
             <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Addition" />
+            <PropertyRef Name="OrderDate" />
+            <PropertyRef Name="IsDelivered" />
+            <PropertyRef Name="Discount" />
           </Key>
           <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Debt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Addition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDelivered" Type="Boolean" />
-          <Property Name="Discount" Type="Int32" />
+          <Property Name="Addition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelivered" Type="Boolean" Nullable="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
           <Property Name="NetTotal" Type="Decimal" Precision="38" Scale="6" />
           <Property Name="TotalPrice" Type="Decimal" Precision="38" Scale="6" />
         </EntityType>
@@ -679,6 +781,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="zOrderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
           <EntitySet Name="Logs" EntityType="Self.Logs" />
           <EntitySet Name="Mails" EntityType="Self.Mails" />
           <EntitySet Name="Operations" EntityType="Self.Operations" />
@@ -686,6 +789,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="vBarcodeList" EntityType="Self.vBarcodeList" />
           <EntitySet Name="vCustomers" EntityType="Self.vCustomers" />
           <EntitySet Name="vLastTotalOrder" EntityType="Self.vLastTotalOrder" />
           <EntitySet Name="vOrderQYear" EntityType="Self.vOrderQYear" />
@@ -713,12 +817,15 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <FunctionImport Name="AylikSiparisTutar" ReturnType="Collection(zOrderModel.AylikSiparisTutar_Result)" />
+          <FunctionImport Name="AylikSiparisTutar" ReturnType="Collection(zOrder.AppModel.AylikSiparisTutar_Result)" />
           <FunctionImport Name="CalenderCreator">
             <Parameter Name="StartDate" Mode="In" Type="DateTime" />
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="OrderCalender" ReturnType="Collection(zOrderModel.OrderCalender_Result)">
+          <FunctionImport Name="GetCustomer" ReturnType="Collection(zOrder.AppModel.GetCustomer_Result)">
+            <Parameter Name="PhoneNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OrderCalender" ReturnType="Collection(zOrder.AppModel.OrderCalender_Result)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="ToplaTutar" ReturnType="Collection(Decimal)">
@@ -740,6 +847,12 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
           <Property Type="Decimal" Name="Kasim" Nullable="false" Precision="38" Scale="6" />
           <Property Type="Decimal" Name="Aralik" Nullable="false" Precision="38" Scale="6" />
         </ComplexType>
+        <ComplexType Name="GetCustomer_Result">
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Debt" Nullable="true" />
+          <Property Type="String" Name="Addition" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="OrderCalender_Result">
           <Property Type="Int32" Name="Year" Nullable="true" />
           <Property Type="Decimal" Name="Ocak" Nullable="false" Precision="38" Scale="6" />
@@ -760,9 +873,25 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="zOrderModelStoreContainer" CdmEntityContainer="zOrderEntities">
+        <EntityContainerMapping StorageEntityContainer="zOrderAppModelStoreContainer" CdmEntityContainer="zOrderEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="zOrderModel.Logs">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Logs">
               <MappingFragment StoreEntitySet="Logs">
                 <ScalarProperty Name="Log_Id" ColumnName="Log_Id" />
                 <ScalarProperty Name="MethodName" ColumnName="MethodName" />
@@ -774,7 +903,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mails">
-            <EntityTypeMapping TypeName="zOrderModel.Mails">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Mails">
               <MappingFragment StoreEntitySet="Mails">
                 <ScalarProperty Name="Mail_Id" ColumnName="Mail_Id" />
                 <ScalarProperty Name="MailSubject" ColumnName="MailSubject" />
@@ -793,18 +922,19 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Operations">
-            <EntityTypeMapping TypeName="zOrderModel.Operations">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Operations">
               <MappingFragment StoreEntitySet="Operations">
                 <ScalarProperty Name="Operation_Id" ColumnName="Operation_Id" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetail">
-            <EntityTypeMapping TypeName="zOrderModel.OrderDetail">
+            <EntityTypeMapping TypeName="zOrder.AppModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetail">
                 <ScalarProperty Name="OrderDetail_Id" ColumnName="OrderDetail_Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
@@ -816,7 +946,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="zOrderModel.Orders">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
@@ -834,7 +964,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="zOrderModel.Products">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Products">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -844,7 +974,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="zOrderModel.Users">
+            <EntityTypeMapping TypeName="zOrder.AppModel.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -858,16 +988,36 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vBarcodeList">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vBarcodeList">
+              <MappingFragment StoreEntitySet="vBarcodeList">
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
+                <ScalarProperty Name="Operation_Id" ColumnName="Operation_Id" />
+                <ScalarProperty Name="OName" ColumnName="OName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vCustomers">
-            <EntityTypeMapping TypeName="zOrderModel.vCustomers">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vCustomers">
               <MappingFragment StoreEntitySet="vCustomers">
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vLastTotalOrder">
-            <EntityTypeMapping TypeName="zOrderModel.vLastTotalOrder">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vLastTotalOrder">
               <MappingFragment StoreEntitySet="vLastTotalOrder">
                 <ScalarProperty Name="Sira" ColumnName="Sira" />
                 <ScalarProperty Name="SipMiktar" ColumnName="SipMiktar" />
@@ -876,7 +1026,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vOrderQYear">
-            <EntityTypeMapping TypeName="zOrderModel.vOrderQYear">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vOrderQYear">
               <MappingFragment StoreEntitySet="vOrderQYear">
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Ocak" ColumnName="Ocak" />
@@ -895,7 +1045,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vOrders">
-            <EntityTypeMapping TypeName="zOrderModel.vOrders">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vOrders">
               <MappingFragment StoreEntitySet="vOrders">
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
@@ -911,7 +1061,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vOrderWYear">
-            <EntityTypeMapping TypeName="zOrderModel.vOrderWYear">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vOrderWYear">
               <MappingFragment StoreEntitySet="vOrderWYear">
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Ocak" ColumnName="Ocak" />
@@ -930,7 +1080,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vTodayTotalOrder">
-            <EntityTypeMapping TypeName="zOrderModel.vTodayTotalOrder">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vTodayTotalOrder">
               <MappingFragment StoreEntitySet="vTodayTotalOrder">
                 <ScalarProperty Name="Sira" ColumnName="Sira" />
                 <ScalarProperty Name="SipMiktar" ColumnName="SipMiktar" />
@@ -939,7 +1089,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vTotalOrder">
-            <EntityTypeMapping TypeName="zOrderModel.vTotalOrder">
+            <EntityTypeMapping TypeName="zOrder.AppModel.vTotalOrder">
               <MappingFragment StoreEntitySet="vTotalOrder">
                 <ScalarProperty Name="Sira" ColumnName="Sira" />
                 <ScalarProperty Name="Yil" ColumnName="Yil" />
@@ -950,9 +1100,9 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AylikSiparisTutar" FunctionName="zOrderModel.Store.AylikSiparisTutar">
+          <FunctionImportMapping FunctionImportName="AylikSiparisTutar" FunctionName="zOrder.AppModel.Store.AylikSiparisTutar">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="zOrderModel.AylikSiparisTutar_Result">
+              <ComplexTypeMapping TypeName="zOrder.AppModel.AylikSiparisTutar_Result">
                 <ScalarProperty Name="Ocak" ColumnName="Ocak" />
                 <ScalarProperty Name="Subat" ColumnName="Subat" />
                 <ScalarProperty Name="Mart" ColumnName="Mart" />
@@ -968,10 +1118,20 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CalenderCreator" FunctionName="zOrderModel.Store.CalenderCreator" />
-          <FunctionImportMapping FunctionImportName="OrderCalender" FunctionName="zOrderModel.Store.OrderCalender">
+          <FunctionImportMapping FunctionImportName="CalenderCreator" FunctionName="zOrder.AppModel.Store.CalenderCreator" />
+          <FunctionImportMapping FunctionImportName="GetCustomer" FunctionName="zOrder.AppModel.Store.GetCustomer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="zOrderModel.OrderCalender_Result">
+              <ComplexTypeMapping TypeName="zOrder.AppModel.GetCustomer_Result">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="Addition" ColumnName="Addition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OrderCalender" FunctionName="zOrder.AppModel.Store.OrderCalender">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="zOrder.AppModel.OrderCalender_Result">
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Ocak" ColumnName="Ocak" />
                 <ScalarProperty Name="Subat" ColumnName="Subat" />
@@ -988,7 +1148,7 @@ warning 6002: The table/view 'KTOtomasyon.dbo.vTotalOrder' does not have a prima
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ToplaTutar" FunctionName="zOrderModel.Store.ToplaTutar" />
+          <FunctionImportMapping FunctionImportName="ToplaTutar" FunctionName="zOrder.AppModel.Store.ToplaTutar" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

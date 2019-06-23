@@ -12,17 +12,13 @@ namespace zOrder.OMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vCustomers
+    public partial class vBarcodeList
     {
-        public int Customer_Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public Nullable<bool> Gender { get; set; }
-        public string Address { get; set; }
-        public string Mail { get; set; }
-        public string Password { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> PhoneNumber { get; set; }
+        public int Barcode { get; set; }
+        public Nullable<int> Product_Id { get; set; }
+        public string PName { get; set; }
+        public int Operation_Id { get; set; }
+        public string OName { get; set; }
+        public Nullable<int> Price { get; set; }
     }
 }

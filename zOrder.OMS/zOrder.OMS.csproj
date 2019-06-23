@@ -217,6 +217,12 @@
     <Compile Include="Models\AylikSiparisTutar_Result.cs">
       <DependentUpon>zOrderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customers.cs">
+      <DependentUpon>zOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetCustomer_Result.cs">
+      <DependentUpon>zOrderModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Logs.cs">
       <DependentUpon>zOrderModel.tt</DependentUpon>
     </Compile>
@@ -239,6 +245,9 @@
       <DependentUpon>zOrderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
+      <DependentUpon>zOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vBarcodeList.cs">
       <DependentUpon>zOrderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vCustomers.cs">
@@ -352,6 +361,16 @@
     <Content Include="css\sharedCss\bootstrap-datetimepicker.css" />
     <Content Include="images\loading.gif" />
     <Content Include="images\logooldu.png" />
+    <Content Include="Models\zOrderModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>zOrderModel.edmx</DependentUpon>
+      <LastGenOutput>zOrderModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\zOrderModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>zOrderModel.edmx</DependentUpon>
+      <LastGenOutput>zOrderModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-datepicker.min.js" />
     <Content Include="Scripts\angular-ui.min.js" />
@@ -450,16 +469,6 @@
     <Content Include="images\sidebar-5.jpg" />
     <Content Include="images\tim_80x80.png" />
     <Content Include="app\login.js" />
-    <Content Include="Models\zOrderModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>zOrderModel.Context.cs</LastGenOutput>
-      <DependentUpon>zOrderModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\zOrderModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>zOrderModel.edmx</DependentUpon>
-      <LastGenOutput>zOrderModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-route.js" />
@@ -477,13 +486,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\zOrderModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>zOrderModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\zOrderModel.edmx.diagram">
-      <DependentUpon>zOrderModel.edmx</DependentUpon>
     </Content>
     <Content Include="css\fonts\Font Awesome 5 Brands-Regular-400.otf" />
     <Content Include="css\fonts\Font Awesome 5 Free-Regular-400.otf" />
@@ -588,6 +590,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="Models\zOrderModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>zOrderModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\zOrderModel.edmx.diagram">
+      <DependentUpon>zOrderModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />

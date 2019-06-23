@@ -26,6 +26,7 @@
     <link href="../css/myCss/login.css" rel="stylesheet" />
 
 </head>
+<!--Ion Loader-->
 <body>
     <div class="header">
         <div style="position:absolute; margin-left:1250px; margin-top:5px;" class="btn btn-outline-primary">
@@ -100,10 +101,12 @@
             <!-- MAIN CONTENT -->
             <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT -->
             <div ui-view style="width:auto; padding:1%;"></div>
+            <ion-loader></ion-loader>
         </div>
+
     </div>
-    <!--Ion Loader-->
-    <ion-loader></ion-loader>
+
+
 
     <!--------------------------------------all external js documents----------------------------------------------->
     <script src="../scripts/modernizr-2.8.3.js"></script>

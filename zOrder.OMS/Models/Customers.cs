@@ -12,7 +12,7 @@ namespace zOrder.OMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vCustomers
+    public partial class Customers
     {
         public int Customer_Id { get; set; }
         public string Name { get; set; }

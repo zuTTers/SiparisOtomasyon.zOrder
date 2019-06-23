@@ -27,6 +27,7 @@ namespace zOrder.OMS.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Mails> Mails { get; set; }
         public virtual DbSet<Operations> Operations { get; set; }
@@ -34,6 +35,7 @@ namespace zOrder.OMS.Models
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<vBarcodeList> vBarcodeList { get; set; }
         public virtual DbSet<vCustomers> vCustomers { get; set; }
         public virtual DbSet<vLastTotalOrder> vLastTotalOrder { get; set; }
         public virtual DbSet<vOrderQYear> vOrderQYear { get; set; }
@@ -58,6 +60,15 @@ namespace zOrder.OMS.Models
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CalenderCreator", startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<GetCustomer_Result> GetCustomer(Nullable<int> phoneNumber)
+        {
+            var phoneNumberParameter = phoneNumber.HasValue ?
+                new ObjectParameter("PhoneNumber", phoneNumber) :
+                new ObjectParameter("PhoneNumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomer_Result>("GetCustomer", phoneNumberParameter);
         }
     
         public virtual ObjectResult<OrderCalender_Result> OrderCalender(Nullable<System.DateTime> date)

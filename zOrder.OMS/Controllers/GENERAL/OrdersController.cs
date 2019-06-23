@@ -471,6 +471,102 @@ namespace zOrder.OMS.Controllers.GENERAL
 
             return Json(ret);
         }
+
+        public JsonResult<ReturnValue> GetBarcode(int barcode)
+        {
+            ReturnValue ret = new ReturnValue();
+
+            try
+            {
+                ret.success = false;
+                bool isExport = false;
+
+                int rowCount = 0;
+
+                using (var db = new zOrderEntities())
+                {
+                    var dataQuery = db.vBarcodeList.OrderBy(x => x.Barcode).Where(x => 1 == 1);
+
+                    rowCount = dataQuery.Count();
+
+                    var data = dataQuery.ToList().Select(x =>
+                        new
+                        {
+                            Barcode = x.Barcode,
+                            Product_Id = x.Product_Id,
+                            PName = x.PName,
+                            Operation_Id = x.Operation_Id,
+                            OName = x.OName,
+                            Price = x.Price,
+                        }).ToList();
+
+                    if (!isExport)
+                    {
+                        ret.retObject = data;
+                    }
+                    else
+                    {
+                        //export excel format
+                    }
+                }
+                ret.success = true;
+                ret.message = "Listelendi";
+            }
+            catch (Exception ex)
+            {
+                ret.success = false;
+                ret.error = ex.Message;
+            }
+
+            return Json(ret);
+        }
+
+        public JsonResult<ReturnValue> GetCustomer(int phoneNumber)
+        {
+            ReturnValue ret = new ReturnValue();
+
+            try
+            {
+                ret.success = false;
+                bool isExport = false;
+
+                int rowCount = 0;
+
+                using (var db = new zOrderEntities())
+                {
+                    var dataQuery = db.GetCustomer(phoneNumber).Where(x => 1 == 1);
+
+                    rowCount = dataQuery.Count();
+
+                    var data = dataQuery.ToList().Select(x =>
+                        new
+                        {
+                            CustomerName = x.CustomerName,
+                            Addition = x.Addition,
+                            Debt = x.Debt,
+                            PhoneNumber = x.PhoneNumber,
+                        }).ToList();
+
+                    if (!isExport)
+                    {
+                        ret.retObject = data;
+                    }
+                    else
+                    {
+                        //export excel format
+                    }
+                }
+                ret.success = true;
+                ret.message = "Listelendi";
+            }
+            catch (Exception ex)
+            {
+                ret.success = false;
+                ret.error = ex.Message;
+            }
+
+            return Json(ret);
+        }
     }
 
 }

@@ -50,8 +50,16 @@ namespace zOrder.OMS.Controllers.GENERAL
                     var data = dataQuery.ToList().Select(x =>
                         new
                         {
+                            Customer_Id = x.Customer_Id,
                             PhoneNumber = x.PhoneNumber,
-                            CustomerName = x.CustomerName
+                            Name = x.Name,
+                            Mail = x.Mail,
+                            Password = x.Password,
+                            Address = x.Address,
+                            Birthday = x.Birthday,
+                            Gender = x.Gender,
+                            IsActive = x.IsActive,
+                            IsDeleted = x.IsDeleted
                         }).ToList();
 
                     if (!isExport)
