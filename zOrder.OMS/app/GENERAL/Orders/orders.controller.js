@@ -5,7 +5,7 @@
         .controller('OrdersController', OrdersController);
 
     /* @ngInject */
-    function OrdersController($scope, $state, $http, $filter, $timeout, $uibModal, $log) {
+    function OrdersController($scope, $state, $http, $filter, $timeout, $uibModal, $log, $uibModalStack) {
         var vm = this;
         vm.Title = 'Siparişler';
 
@@ -76,17 +76,22 @@
                         controller: 'OrdersDialogController',
                         controllerAs: 'vm',
                         size: size,
-                        //appendTo: parentElem,
+                        backdrop: 'static',
+                        keyboard: true,
+                        backdropClick: false,
+                        windowTopClass: '',
+                        windowClass: 'my-modal',
                         resolve: {
                             data: function () {
                                 return data = { row: row, edit: type, order: vm.main, orderDetail: vm.detail };
                             }
                         }
-                    });
-                    modalInstance.result.then(function (row) {
+                    }).rendered.then(function (row) {
+                        $uibModalStack.getTop().value.modalDomEl.attr('row', row);
+                    }).result.then(function (row) {
                         OrdersDialogController.selected = row;
                     }, function () {
-                        $log.info('Modal dismissed at: ' + new Date());
+                        $log.info('Modal reddet : ' + new Date());
                     });
 
                 });
@@ -100,17 +105,16 @@
                     controller: 'OrdersDialogController',
                     controllerAs: 'vm',
                     size: size,
-                    //appendTo: parentElem,
+                    backdrop: 'static',
+                    keyboard: true,
+                    backdropClick: false,
+                    windowTopClass: '',
+                    windowClass: 'my-modal',
                     resolve: {
                         data: function () {
                             return data = { row: row, edit: type };
                         }
                     }
-                });
-                modalInstance.result.then(function (row) {
-                    OrdersDialogController.selected = row;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
                 });
             }
 
@@ -122,15 +126,15 @@
                 method: 'GET',
                 url: '/api/Orders/Delete?id=' + id
             }).then(function (response) {
-                    //alert('test sil :' + response.data.retObject);
-                    //$state.reload();
-                    getList();
-                    $filter("showInfo")($filter, 'Silindi', 1000, 'info'); // JSON text denenebilir
-                });
+                //alert('test sil :' + response.data.retObject);
+                //$state.reload();
+                getList();
+                $filter("showInfo")($filter, 'Silindi', 1000, 'info'); // JSON text denenebilir
+            });
         };
 
         vm.receipt = function (row) {
-            
+
             //$state.go('Receipt');
             //window.open('receipt.html','_target');
             var url = $state.href('Receipt', {

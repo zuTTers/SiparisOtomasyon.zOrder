@@ -1,6 +1,6 @@
 ﻿<div class="modal-header" style="background-color:#12ae00;">
     <h3 class="modal-title" id="modal-title">
-        {{vm.Title}} <span ng-if="vm.row.Order_Id">- {{vm.row.Order_Id}}</span> 
+        {{vm.Title}} <span ng-if="vm.row.Order_Id">- {{vm.row.Order_Id}}</span>
         <b class="pull-right" style="background-color:white; min-width:200px; width:240px; text-align:center; margin-right:34%; border-radius:10px;">Tutar : <span style="text-transform:uppercase;">{{vm.totalprice}} TL</span></b>
 
     </h3>
@@ -40,18 +40,32 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
+                <input ng-model="vm.touchOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showtouchOrder()" value="Dokunarak İşlem" />
+            </div>
+            <div class="col-lg-3">
                 <input ng-model="vm.barcodeOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showbarcodeOrder()" value="Barkod İşlem" />
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <input ng-model="vm.fastOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showfastOrder()" value="Hızlı İşlem" />
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <input ng-model="vm.normalOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.shownormalOrder()" value="Liste İşlem" />
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
+                <div class="row" ng-if="vm.touchOrder">
+                    <div class="col-lg-4">
+                        1.
+                    </div>
+                    <div class="col-lg-4">
+                        2.
+                    </div>
+                    <div class="col-lg-4">
+                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="TL" />
+                    </div>
+                </div>
                 <div class="row" ng-if="vm.barcodeOrder">
                     <div class="col-lg-12">
                         <input ng-model="vm.row.Barcode" ng-change="vm.getBarcode()" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="10" ng-keypress="vm.IsNumber(event)" placeholder="Barkod No" />
@@ -59,7 +73,8 @@
                 </div>
                 <div class="row" ng-if="vm.fastOrder">
                     <div class="col-lg-12">
-                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="Tutar" /> <span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>
+                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="TL" />
+                        <!--<span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>-->
                     </div>
                 </div>
                 <div class="row" ng-if="vm.normalOrder">
@@ -140,7 +155,7 @@
 
     </div>
     <div class="col-lg-4">
-        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">İptal</button>
-        <button class="btn btn-primary" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
+        <button class="btn btn-warning pull-right" type="button" ng-click="vm.cancel()">İptal</button>
+        <button class="btn btn-primary pull-right" type="button" ng-click="vm.ok(vm.edit, vm.row)">Kaydet</button>
     </div>
 </div>

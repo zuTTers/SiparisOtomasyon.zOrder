@@ -1,45 +1,27 @@
+/*Custom Modal CSS $uibModal -> windowClass: 'my-modal'*/
+.my-modal .modal-dialog {
+    width: 100% !important;
+    padding: 0px;
+    margin: 0px;
+}
+
+.my-modal .modal-content {
+    width: 100% !important;
+    min-height: 100vh !important;
+    padding: 0px;
+    margin: 0px;
+}
+
+.my-modal .modal-footer {
+    position: absolute;
+    bottom: 0px;
+    width:100%;
+    padding:2px !important;
+}
 
 .navbar {
     border-radius: 0;
 }
-
-
-/* Fix for Bootstrap 3 with Angular UI Bootstrap */
-
-.modal {
-    display: block;
-}
-
-/* Custom dialog/modal headers */
-
-.dialog-header-error {
-    background-color: #d2322d;
-}
-
-.dialog-header-wait {
-    background-color: #428bca;
-}
-
-.dialog-header-notify {
-    background-color: #eeeeee;
-}
-
-.dialog-header-confirm {
-    background-color: #333333;
-}
-
-    .dialog-header-error span, .dialog-header-error h4,
-    .dialog-header-wait span, .dialog-header-wait h4,
-    .dialog-header-confirm span, .dialog-header-confirm h4 {
-        color: #ffffff;
-    }
-
-/* Ease Display */
-
-.pad {
-    padding: 25px;
-}
-
 
 /* The switch - the box around the slider */
 .switch {

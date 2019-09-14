@@ -23,6 +23,6 @@ namespace zOrder.OMS.Models
         public string Password { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

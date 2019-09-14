@@ -14,9 +14,11 @@
         vm.productDataList = [];
         vm.orderdetailDataList = [];
 
-        vm.barcodeOrder = true;
+        vm.barcodeOrder = false;
         vm.fastOrder = false;
         vm.normalOrder = false;
+        vm.touchOrder = true;
+
 
         vm.row = data.order;
         vm.edit = data.edit;
@@ -36,12 +38,16 @@
                 });
                 vm.fastOrder = false;
                 vm.normalOrder = true;
+                vm.barcodeOrder = false;
+                vm.touchOrder = false;
             }
         }
 
-        vm.showfastOrder = function () { vm.fastOrder = true; vm.normalOrder = false; vm.barcodeOrder = false; }
-        vm.shownormalOrder = function () { vm.normalOrder = true; vm.fastOrder = false; vm.barcodeOrder = false; }
-        vm.showbarcodeOrder = function () { vm.barcodeOrder = true; vm.fastOrder = false; vm.normalOrder = false; }
+        vm.showfastOrder = function () { vm.fastOrder = true; vm.normalOrder = false; vm.barcodeOrder = false; vm.touchOrder = false;}
+        vm.shownormalOrder = function () { vm.normalOrder = true; vm.fastOrder = false; vm.barcodeOrder = false; vm.touchOrder = false;}
+        vm.showbarcodeOrder = function () { vm.barcodeOrder = true; vm.fastOrder = false; vm.normalOrder = false; vm.touchOrder = false;}
+        vm.showtouchOrder = function () { vm.touchOrder = true; vm.fastOrder = false; vm.normalOrder = false; vm.barcodeOrder = false; }
+
 
         /*Textbox'ın sadece int değer almasını sağlar.*/
         vm.IsNumber = function (evt) {
@@ -162,7 +168,7 @@
 
             $http.get('/api/Orders/GetBarcode?barcode=' + id)
                 .then(function (response) {
-                    var data = response.data.retObject;
+                    vm.barcodeData = response.data.retObject;
                 });
         }
 

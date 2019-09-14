@@ -21,6 +21,7 @@ namespace zOrder.OMS.Models
         public string Addition { get; set; }
         public System.DateTime OrderDate { get; set; }
         public bool IsDelivered { get; set; }
+        public bool IsPaid { get; set; }
         public int Discount { get; set; }
         public Nullable<decimal> NetTotal { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }

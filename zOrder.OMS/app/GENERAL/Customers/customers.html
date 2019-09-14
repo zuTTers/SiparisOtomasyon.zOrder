@@ -15,12 +15,20 @@
                 <tr>
                     <th><label>Seç</label></th>
                     <th ng-click="vm.sort('PhoneNumber')">
-                        <label>Tadilat No</label>
+                        <label>Telefon No</label>
                         <span class="fa" ng-show="vm.sortKey=='PhoneNumber' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
                     <th ng-click="vm.sort('CustomerName')">
-                        <label>Ürün No</label>
-                        <span class="fa" ng-show="vm.sortKey=='CustomerName' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                        <label>Müşteri Adı</label>
+                        <span class="fa" ng-show="vm.sortKey=='Name' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('Birthday')">
+                        <label>Oluşturulma</label>
+                        <span class="fa" ng-show="vm.sortKey=='Name' || vm.sortKey== null" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
+                    </th>
+                    <th ng-click="vm.sort('IsActive')">
+                        <label>Aktif</label>
+                        <span class="fa" ng-show="vm.sortKey=='IsActive'" ng-class="{'fa-arrow-circle-up':vm.reverse,'fa-arrow-circle-down':!vm.reverse}"></span>
                     </th>
                 </tr>
             </thead>
@@ -31,7 +39,9 @@
                         <!--<button ng-click="vm.delete(row.Product_Id)" class="btn btn-danger"><span class="fa fa-trash"></span></button>-->
                     </td>
                     <td>{{row.PhoneNumber}}</td>
-                    <td>{{row.CustomerName}}</td>
+                    <td>{{row.Name}}</td>
+                    <td>{{row.Birthday | jsDate | formatDate}}</td>
+                    <td><label class="switch disabled"><input type="checkbox" ng-model="row.IsActive" disabled><span class="slider round"></span></label> <!--{{row.IsActive | yesNo}}--></td>
                 </tr>
             </tbody>
         </table>

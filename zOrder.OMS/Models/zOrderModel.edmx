@@ -23,7 +23,8 @@ warning 6013: The table/view 'zOrder.App.dbo.Calendar' does not have a primary k
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="IsActive" Type="bit" />
-          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Debt" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -145,7 +146,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vCustomers' does not have a primary
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="IsActive" Type="bit" />
-          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'zOrder.App.dbo.vLastTotalOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -198,6 +199,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vOrders' does not have a primary ke
             <PropertyRef Name="Addition" />
             <PropertyRef Name="OrderDate" />
             <PropertyRef Name="IsDelivered" />
+            <PropertyRef Name="IsPaid" />
             <PropertyRef Name="Discount" />
           </Key>
           <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -207,6 +209,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vOrders' does not have a primary ke
           <Property Name="Addition" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="IsDelivered" Type="bit" Nullable="false" />
+          <Property Name="IsPaid" Type="bit" Nullable="false" />
           <Property Name="Discount" Type="int" Nullable="false" />
           <Property Name="NetTotal" Type="decimal" Precision="38" Scale="6" />
           <Property Name="TotalPrice" Type="decimal" Precision="38" Scale="6" />
@@ -406,6 +409,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
     [vOrders].[Addition] AS [Addition], 
     [vOrders].[OrderDate] AS [OrderDate], 
     [vOrders].[IsDelivered] AS [IsDelivered], 
+    [vOrders].[IsPaid] AS [IsPaid], 
     [vOrders].[Discount] AS [Discount], 
     [vOrders].[NetTotal] AS [NetTotal], 
     [vOrders].[TotalPrice] AS [TotalPrice]
@@ -484,7 +488,8 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
-          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Debt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -612,7 +617,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
-          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vLastTotalOrder">
           <Key>
@@ -659,6 +664,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
             <PropertyRef Name="Addition" />
             <PropertyRef Name="OrderDate" />
             <PropertyRef Name="IsDelivered" />
+            <PropertyRef Name="IsPaid" />
             <PropertyRef Name="Discount" />
           </Key>
           <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -668,6 +674,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
           <Property Name="Addition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDelivered" Type="Boolean" Nullable="false" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
           <Property Name="Discount" Type="Int32" Nullable="false" />
           <Property Name="NetTotal" Type="Decimal" Precision="38" Scale="6" />
           <Property Name="TotalPrice" Type="Decimal" Precision="38" Scale="6" />
@@ -887,6 +894,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1054,6 +1062,7 @@ warning 6002: The table/view 'zOrder.App.dbo.vTotalOrder' does not have a primar
                 <ScalarProperty Name="Addition" ColumnName="Addition" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
