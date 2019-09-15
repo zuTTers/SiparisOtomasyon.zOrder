@@ -13,12 +13,7 @@
         vm.operationDataList = [];
         vm.productDataList = [];
         vm.orderdetailDataList = [];
-
-        vm.barcodeOrder = false;
-        vm.fastOrder = false;
-        vm.normalOrder = false;
-        vm.touchOrder = true;
-
+        vm.customerDataList = [];
 
         vm.row = data.order;
         vm.edit = data.edit;
@@ -36,18 +31,8 @@
                 $.each(vm.orderdetailDataList, function (i, v) {
                     vm.totalprice += v.TotalPrice;
                 });
-                vm.fastOrder = false;
-                vm.normalOrder = true;
-                vm.barcodeOrder = false;
-                vm.touchOrder = false;
             }
         }
-
-        vm.showfastOrder = function () { vm.fastOrder = true; vm.normalOrder = false; vm.barcodeOrder = false; vm.touchOrder = false;}
-        vm.shownormalOrder = function () { vm.normalOrder = true; vm.fastOrder = false; vm.barcodeOrder = false; vm.touchOrder = false;}
-        vm.showbarcodeOrder = function () { vm.barcodeOrder = true; vm.fastOrder = false; vm.normalOrder = false; vm.touchOrder = false;}
-        vm.showtouchOrder = function () { vm.touchOrder = true; vm.fastOrder = false; vm.normalOrder = false; vm.barcodeOrder = false; }
-
 
         /*Textbox'ın sadece int değer almasını sağlar.*/
         vm.IsNumber = function (evt) {
@@ -132,6 +117,24 @@
                     vm.row.Quantity = 1;
                     vm.row.Price = response.data.retObject.Price;
                 });
+        }
+
+        vm.getCustomers = function (id) {
+            $http.get('/api/Customer/List')
+                .then(function (response) {
+                    vm.customerDataList = [];
+                    vm.customerDataList = response.data.retObject;
+                });
+        }
+        vm.getCustomers();
+
+        vm.getCustomerData = function (no) {
+            $.each(vm.customerDataList, function (i, v) {
+                if (v.PhoneNumber == no) {
+                    vm.row.CustomerName = v.Name;
+                    vm.row.Debt = v.Debt;
+                }
+            });
         }
 
         //vm.row.Price = 1;

@@ -1,3 +1,35 @@
+/*Kartlar*/
+.cardHolder {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.card {
+    flex: 1;
+    margin: .1em;
+    height:49px;
+    min-width: 60px;
+    background-color: #fff;
+    color:black;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all .25s ease;
+    animation: populate .5s ease-out normal backwards;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        z-index: 1;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    }
+
+@keyframes populate {
+    0% {
+        transform: scale(0);
+    }
+}
+
+
 /*Custom Modal CSS $uibModal -> windowClass: 'my-modal'*/
 .my-modal .modal-dialog {
     width: 100% !important;
@@ -17,6 +49,19 @@
     bottom: 0px;
     width:100%;
     padding:2px !important;
+}
+
+.modal-body{
+    padding:5px !important;
+}
+.modal-header {
+    padding: 5px !important;
+    max-height:50px !important;
+}
+
+.row{
+    margin-left:0px !important;
+    margin-right:0px !important;
 }
 
 .navbar {

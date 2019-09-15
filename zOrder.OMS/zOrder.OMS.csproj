@@ -359,8 +359,13 @@
     <Content Include="css\sharedCss\angular-datepicker.css" />
     <Content Include="css\sharedCss\angular-datepicker.min.css" />
     <Content Include="css\sharedCss\bootstrap-datetimepicker.css" />
+    <Content Include="images\female-icon-7885-Windows.ico" />
+    <Content Include="images\female-icon-7885.png" />
+    <Content Include="images\female.png" />
     <Content Include="images\loading.gif" />
     <Content Include="images\logooldu.png" />
+    <Content Include="images\male-icon-7920-Windows.ico" />
+    <Content Include="images\male-icon-7920.png" />
     <Content Include="Models\zOrderModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>zOrderModel.edmx</DependentUpon>

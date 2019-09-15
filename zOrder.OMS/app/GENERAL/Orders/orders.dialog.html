@@ -1,8 +1,7 @@
 ﻿<div class="modal-header" style="background-color:#12ae00;">
     <h3 class="modal-title" id="modal-title">
         {{vm.Title}} <span ng-if="vm.row.Order_Id">- {{vm.row.Order_Id}}</span>
-        <b class="pull-right" style="background-color:white; min-width:200px; width:240px; text-align:center; margin-right:34%; border-radius:10px;">Tutar : <span style="text-transform:uppercase;">{{vm.totalprice}} TL</span></b>
-
+        <b class="pull-right" style="background-color:white; min-width:200px; width:240px; text-align:center; margin-right:40%; border-radius:10px;">Tutar : <span style="text-transform:uppercase;">{{vm.totalprice}} TL</span></b>
     </h3>
     <button type="button" class="close" style="margin-top: -24px !important;" ng-click="vm.cancel()"><b style="color:darkred !important;"><span class="fa fa-close"></span></b></button>
 </div>
@@ -12,13 +11,13 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h6 class="text-uppercase">Telefon No</h6>
-                    <input ng-model="vm.row.PhoneNumber" type="text" maxlength="10" class="form-control" name="PhoneNumber" tabindex="1" placeholder="555 444 33 22" value="" ng-keypress="vm.IsNumber(event)" />
+                    <input ng-model="vm.row.PhoneNumber" type="text" maxlength="10" class="form-control" name="PhoneNumber" tabindex="1" placeholder="555 444 33 22" value="" ng-blur="vm.getCustomerData(vm.row.PhoneNumber)" ng-keypress="vm.IsNumber(event)" />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h6 class="text-uppercase">Teslim Tarihi</h6>
                     <datepicker date-format="dd-MM-yyyy" selector="form-control">
                         <div class="input-group">
-                            <input ng-model="vm.row.OrderDate" class="form-control" placeholder="Tarih seç" type="text" tabindex="4" style="margin-top: 0px;" />
+                            <input ng-model="vm.row.OrderDate" class="form-control" placeholder="Tarih seç" type="text" tabindex="2" style="margin-top: 0px;" />
                             <span class="input-group-addon" style="cursor: pointer">
                                 <i class="fa fa-calendar"></i>
                             </span>
@@ -31,53 +30,152 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h6 class="text-uppercase">Müşteri Ad/Soyad</h6>
-                    <input ng-model="vm.row.CustomerName" type="text" maxlength="25" class="form-control text-uppercase" style="text-transform:uppercase" placeholder="Ad/Soyad" tabindex="2" />
+                    <input ng-model="vm.row.CustomerName" type="text" maxlength="25" class="form-control text-uppercase" style="text-transform:uppercase" placeholder="Ad/Soyad" tabindex="3" />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
-                    <h6 class="text-uppercase"> Alınan Tutar </h6>
+                    <h6 class="text-uppercase"> Borç </h6>
                     <input ng-model="vm.row.Debt" type="text" ng-keypress="vm.IsNumber(event)" maxlength="5" class="form-control text-uppercase" placeholder="0" tabindex="4" />
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
-                <input ng-model="vm.touchOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showtouchOrder()" value="Dokunarak İşlem" />
-            </div>
-            <div class="col-lg-3">
-                <input ng-model="vm.barcodeOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showbarcodeOrder()" value="Barkod İşlem" />
-            </div>
-            <div class="col-lg-3">
-                <input ng-model="vm.fastOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.showfastOrder()" value="Hızlı İşlem" />
-            </div>
-            <div class="col-lg-3">
-                <input ng-model="vm.normalOrder" ng-if="!vm.edit" type="button" class="btn btn-default" ng-click="vm.shownormalOrder()" value="Liste İşlem" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row" ng-if="vm.touchOrder">
-                    <div class="col-lg-4">
-                        1.
+            <uib-tabset active="activeJustified" justified="true">
+                <uib-tab index="0" heading="Dokunmatik İşlem">
+                    <div class="col-xs-12" style="margin-top:1%;">
+                        <div class="col-xs-6" ng-click="#">
+                            <div class="d-flex align-content-stretch flex-wrap">
+                                <div class="p-xl-1 bg-primary">
+                                    <div class="cardHolder">
+                                        <div class="align-self-start"><img class="card" src="../../../images/male-icon-7920.png" /></div>
+                                        <div class="card">Urun 1 Erkek</div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                    </div>
+                                </div>
+                                <div class="p-xl-1 bg-danger">
+                                    <div class="cardHolder">
+                                        <div class="align-self-start"><img class="card" src="../../../images/female.png" /></div>
+                                        <div class="card">Urun 1 Kadın</div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" ng-click="#">
+                            <div class="d-flex align-content-stretch flex-wrap">
+                                <div class="p-xl-2 bg-primary">
+                                    <div class="cardHolder">
+                                        <div class="card">Tadilat 1 Erkek</div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                    </div>
+                                </div>
+                                <div class="p-xl-3 bg-danger">
+                                    <div class="cardHolder">
+                                        <div class="card">Tadilat 1 Kadın</div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                        <div class="card"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="1==0">
+                            <div>
+                                <div class="">
+                                    <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="TL" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4">
-                        2.
-                    </div>
-                    <div class="col-lg-4">
-                        <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="TL" />
-                    </div>
-                </div>
-                <div class="row" ng-if="vm.barcodeOrder">
+                </uib-tab>
+                <uib-tab index="1" heading="Barkodlu İşlem">
                     <div class="col-lg-12">
                         <input ng-model="vm.row.Barcode" ng-change="vm.getBarcode()" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="10" ng-keypress="vm.IsNumber(event)" placeholder="Barkod No" />
                     </div>
-                </div>
-                <div class="row" ng-if="vm.fastOrder">
+                </uib-tab>
+                <uib-tab index="2" heading="Hızlı İşlem">
                     <div class="col-lg-12">
                         <input ng-model="vm.row.Price" type="number" class="form-control text-uppercase" style="text-transform:uppercase; margin-left: 30px; margin-top: 1%; font-size:20px; text-align:center; width:88%; float:left;" maxlength="5" ng-keypress="vm.IsNumber(event)" placeholder="TL" />
-                        <!--<span style="text-transform:uppercase; margin-top: 1%; font-size:20px; text-align:center; color:gray; margin-left:2%;">TL</span>-->
                     </div>
-                </div>
-                <div class="row" ng-if="vm.normalOrder">
+                </uib-tab>
+                <uib-tab index="3" heading="Listeli İşlem">
                     <div class="col-lg-12">
                         <div class="col-lg-3">
                             <h6 class="text-uppercase"> Ürün Seçiniz</h6>
@@ -104,7 +202,7 @@
                             <button class="btn btn-primary" type="button" ng-click="vm.addOrderDetail(vm.row.Operation_Id,vm.row.Quantity,vm.row.Price)"><span class="fa fa-plus"></span></button>
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" style="margin-bottom: 20px;">
                         <table class="table table-dark">
                             <thead>
                                 <tr>
@@ -112,7 +210,7 @@
                                     <th class="text-uppercase"><b>Tadilat</b></th>
                                     <th class="text-uppercase"><b>Adet</b></th>
                                     <th class="text-uppercase"><b>B.Tutar</b></th>
-                                    <th class="text-uppercase"><b>Çıkar</b></th>
+                                    <th class="text-uppercase"><b>Seç</b></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,13 +224,15 @@
                             </tbody>
                         </table>
                     </div>
+                </uib-tab>
+            </uib-tabset>
 
-                </div>
-            </div>
         </div>
+
     </form>
 </div>
 <div class="modal-footer">
+    <uib-progressbar class="progress-striped active" value="65" type="warning" style="margin-bottom:0px !important;"><small><em>Sipariş Hazırlanıyor</em></small></uib-progressbar>
     <div class="col-lg-1">
         <b class="text-muted">Teslim: </b>
         <label class="custom-control custom-checkbox">
