@@ -8,8 +8,6 @@
     function OrdersDialogController($scope, $state, $http, $timeout, $uibModalInstance, $filter, data) {
         var vm = this;
 
-        vm.minDate = new Date().toDateString();
-
         vm.operationDataList = [];
         vm.productDataList = [];
         vm.orderdetailDataList = [];
@@ -18,7 +16,7 @@
         vm.row = data.order;
         vm.edit = data.edit;
         
-        if (!vm.edit) { vm.Title = 'Yeni Fiş'; }
+        if (!vm.edit) { vm.Title = 'Yeni Fiş'; vm.minDate = new Date().toDateString();}
 
         if (vm.edit) {
             vm.Title = 'Fiş Detay';

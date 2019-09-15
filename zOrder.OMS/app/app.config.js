@@ -13,6 +13,7 @@ var appversion = '1.0';
         'ngSanitize',
         'ui.bootstrap',
         '720kb.datepicker',
+        'SignIn'
         //'ngAnimate', 'ngSanitize', 
         //'ngMessages', 'ngMeterial',
         //'chart.js', 
@@ -20,7 +21,6 @@ var appversion = '1.0';
         //'localstoragemodule', 'ui.calender', 'hljs',
         //'angularmoment', 'textangular', 
         //'uigmapgoogle-maps', 'ngfileupload', 'md.data.table',
-        'SignIn'
 
     ];
 
